@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "pinia": "^2.0.35",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
+  }
+}
