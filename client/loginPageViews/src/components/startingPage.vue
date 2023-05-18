@@ -10,7 +10,7 @@
           <div>
             <div
               class="flex mt-2 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
-              v-if="invalid !==null&& invalid!==''"
+              v-if="this.invalid"
               role="alert"
             >
               <svg

@@ -6,7 +6,12 @@
     </div>
 
     <div>
-      <button v-if="checkrestart == true" type="button" class="restart rounded-3xl" @click="restart">
+      <button
+        v-if="checkrestart == true"
+        type="button"
+        class="restart rounded-3xl"
+        @click="restart"
+      >
         Play again
       </button>
     </div>
@@ -15,44 +20,81 @@
       <h1>{{ winner }} WINS!!</h1>
     </div>
     <div class="flex justify-center mt-3 h-fit">
-      <div> <span class="bg-blue-100 shadow-sm text-blue-800 text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded">
+      <div>
+        <span
+          class="bg-blue-100 shadow-sm text-blue-800 text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded"
+        >
           {{ Store.opponentName }}
-        </span></div>
+        </span>
+      </div>
 
-      <div @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit">
+      <div
+        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit"
+      >
         {{ Store.opponentEmoji }}
       </div>
-      <div v-if="trying"> <img src="../images/output-onlinegiftools.gif" class=" relative bottom-3 left-3 h-8 scale-[1.9]" />
+      <div v-if="trying">
+        <img
+          src="../images/output-onlinegiftools.gif"
+          class="relative bottom-3 left-3 h-8 scale-[1.9]"
+        />
       </div>
     </div>
-    <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
-    color="#3d8ab5" />
-    <canvas v-if="this.Store.havecode == '5iztui'" ref="canvas"
+    <hollow-dots-spinner
+      v-if="Store.clientcount == 1"
+      :animation-duration="1000"
+      :dot-size="15"
+      :dots-num="3"
+      color="#3d8ab5"
+    />
+    <canvas
+      v-if="this.Store.havecode == '5iztui'"
+      ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500" width="500"></canvas>
-    <canvas v-else-if="this.Store.havecode !== '5iztui'" ref="canvas"
-      class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust  shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500" width="500" v-bind:style="canvasrotation">
+      height="500"
+      width="500"
+    ></canvas>
+    <canvas
+      v-else-if="this.Store.havecode !== '5iztui'"
+      ref="canvas"
+      class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust shadow-md h-[45dvh] lg:h-[63dvh]"
+      height="500"
+      width="500"
+      v-bind:style="canvasrotation"
+    >
     </canvas>
 
-  
-
     <div class="flex mt-1">
-      <div id="voiceButton" class=" cursor-pointer relative  py-2 scale-[1.3] mr-3"> 
-        <img v-if="!recording" class=" h-8   rounded-full mx-2 " src="../images/podcast.png" />
-        <img v-if="recording" class=" h-8  rounded-full mx-2 scale-[1.3] " src="../images/podcast.gif" />
+      <div id="voiceButton" class="cursor-pointer relative py-2 scale-[1.3] mr-3">
+        <img v-if="!recording" class="h-8 rounded-full mx-2" src="../images/podcast.png" />
+        <img
+          v-if="recording"
+          class="h-8 rounded-full mx-2 scale-[1.3]"
+          src="../images/podcast.gif"
+        />
       </div>
 
-      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded">
+      <button
+        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded"
+      >
         {{ Store.myName }}
       </button>
-      <EmojiPicker v-if="Store.showEmojiPicker" @select="showEmoji" class="fixed lg:right-40 z-50 bottom-10"
-        disable-skin-tones="true" display-recent="true" native="true" hide-group-icons="true"
-        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']" />
-      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl  animate-[bounce_.8s_ease-in-out_infinite]">
+      <EmojiPicker
+        v-if="Store.showEmojiPicker"
+        @select="showEmoji"
+        class="fixed lg:right-40 z-50 bottom-10"
+        disable-skin-tones="true"
+        display-recent="true"
+        native="true"
+        hide-group-icons="true"
+        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']"
+      />
+      <button
+        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="text-2xl animate-[bounce_.8s_ease-in-out_infinite]"
+      >
         {{ Store.selectedEmoji }}
       </button>
     </div>
@@ -122,7 +164,7 @@ export default {
       mediaRecorder: null,
       recording: false,
       voiceButton: null,
-      trying:null
+      trying: null
     }
   },
   computed: {
@@ -190,7 +232,7 @@ export default {
       this.audio = new Audio(
         'https://docs.google.com/uc?export=download&id=17diq43t5Rc8Z9ppvQG5d6PRFx9-KxemO'
       )
-      this.audio.volume = 0.4
+      this.audio.volume = 0.1
       this.bounce_sound = new Audio(
         'https://docs.google.com/uc?export=download&id=1ULvJnA8QyCnyRfcDLla7TFdVo2Kufymc'
       )
@@ -198,36 +240,34 @@ export default {
         'https://docs.google.com/uc?export=download&id=1X2ls1jko9rdX0Ukm6ON7WVpNsfPtXVfB'
       )
       this.connectToSocket()
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then((stream) => {
-          this.mediaRecorder = new MediaRecorder(stream);
-          let chunks = [];
-          this.mediaRecorder.addEventListener('dataavailable', (event) => {
-            chunks.push(event.data);
-          });
-          this.mediaRecorder.addEventListener('stop', () => {
-            const recordedSound = new Blob(chunks, { type: 'audio/webm' });
-            socket.emit('sendRecordedSound', recordedSound);
-            chunks = [];
-          });
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        this.mediaRecorder = new MediaRecorder(stream)
+        let chunks = []
+        this.mediaRecorder.addEventListener('dataavailable', (event) => {
+          chunks.push(event.data)
         })
+        this.mediaRecorder.addEventListener('stop', () => {
+          const recordedSound = new Blob(chunks, { type: 'audio/webm' })
+          socket.emit('sendRecordedSound', recordedSound)
+          chunks = []
+        })
+      })
 
-      this.voiceButton = document.getElementById('voiceButton');
+      this.voiceButton = document.getElementById('voiceButton')
       this.voiceButton.addEventListener('click', () => {
         if (this.mediaRecorder.state === 'inactive') {
-          this.mediaRecorder.start();
-          this.recording = true;
-          this.socket.emit('recording',true)
+          this.mediaRecorder.start()
+          this.recording = true
+          this.socket.emit('recording', true)
 
           // this.voiceButton.src = 'C:/Users/jasmeet/Downloads/pingpong (1)/pingpong/client/loginPageViews/src/images/podcast.gif';
         } else {
-          this.mediaRecorder.stop();
-          this.recording = false;
-          this.socket.emit('recording',false)
+          this.mediaRecorder.stop()
+          this.recording = false
+          this.socket.emit('recording', false)
           // this.voiceButton.textContent = 'Record Voice';
         }
       })
-
 
       document.addEventListener('keydown', (event) => {
         if (event.code === 'ArrowLeft') {
@@ -253,7 +293,7 @@ export default {
   methods: {
     showEmoji(e) {
       this.Store.selectedEmoji = e.i
-  
+
       this.Store.showEmojiPicker = false
       this.socket.emit('emojy', {
         selectedEmoji: this.Store.selectedEmoji
@@ -323,7 +363,6 @@ export default {
       this.socket.emit('life', data)
 
       this.socket.on('emojies', (data) => {
-      
         this.Store.opponentEmoji = data.SelectedEmoji
       })
 
@@ -349,11 +388,11 @@ export default {
         this.y_1 = data.y_cordinate_center
         this.dx_1 = data.xspeed
         this.dy_1 = data.yspeed
-          ; (this.radius_1 = data.radius_1),
-            (this.goals_1 = data.goals_1),
-            (this.gameover = data.gameover),
-            (this.check1_1 = data.check1_1),
-            (this.check_1 = data.check_1)
+        ;(this.radius_1 = data.radius_1),
+          (this.goals_1 = data.goals_1),
+          (this.gameover = data.gameover),
+          (this.check1_1 = data.check1_1),
+          (this.check_1 = data.check_1)
 
         this.canvasupdate()
       })
@@ -379,16 +418,15 @@ export default {
       })
 
       this.socket.on('playRecordedSound', (soundData) => {
-        
-        const audioBlob = new Blob([soundData], { type: 'audio/*' });
-        const audioElement = new Audio();
-        audioElement.src = URL.createObjectURL(audioBlob);
-        document.body.appendChild(audioElement);
-        audioElement.play();
-      });
-      this.socket.on('recording',(data)=>{
-        if(data)this.trying=true;
-        else this.trying=false;
+        const audioBlob = new Blob([soundData], { type: 'audio/*' })
+        const audioElement = new Audio()
+        audioElement.src = URL.createObjectURL(audioBlob)
+        document.body.appendChild(audioElement)
+        audioElement.play()
+      })
+      this.socket.on('recording', (data) => {
+        if (data) this.trying = true
+        else this.trying = false
       })
     },
 
