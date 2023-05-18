@@ -23,7 +23,7 @@
         class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit">
         {{ Store.opponentEmoji }}
       </div>
-      <div> <img src="../images/output-onlinegiftools.gif" class=" relative bottom-3 left-3 h-8 scale-[1.9]" />
+      <div v-if="trying"> <img src="../images/output-onlinegiftools.gif" class=" relative bottom-3 left-3 h-8 scale-[1.9]" />
       </div>
     </div>
     <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
@@ -36,7 +36,7 @@
       height="500" width="500" v-bind:style="canvasrotation">
     </canvas>
 
-   
+  
 
     <div class="flex mt-1">
       <div id="voiceButton" class=" cursor-pointer relative  py-2 scale-[1.3] mr-3"> 
@@ -121,7 +121,8 @@ export default {
       goalSound: null,
       mediaRecorder: null,
       recording: false,
-      voiceButton: null
+      voiceButton: null,
+      trying:null
     }
   },
   computed: {
@@ -216,11 +217,13 @@ export default {
         if (this.mediaRecorder.state === 'inactive') {
           this.mediaRecorder.start();
           this.recording = true;
+          this.socket.emit('recording',true)
 
           // this.voiceButton.src = 'C:/Users/jasmeet/Downloads/pingpong (1)/pingpong/client/loginPageViews/src/images/podcast.gif';
         } else {
           this.mediaRecorder.stop();
           this.recording = false;
+          this.socket.emit('recording',false)
           // this.voiceButton.textContent = 'Record Voice';
         }
       })
@@ -250,8 +253,7 @@ export default {
   methods: {
     showEmoji(e) {
       this.Store.selectedEmoji = e.i
-      console.log(e.i)
-      console.log(e.i.type)
+  
       this.Store.showEmojiPicker = false
       this.socket.emit('emojy', {
         selectedEmoji: this.Store.selectedEmoji
@@ -321,7 +323,7 @@ export default {
       this.socket.emit('life', data)
 
       this.socket.on('emojies', (data) => {
-        console.log(data.SelectedEmoji)
+      
         this.Store.opponentEmoji = data.SelectedEmoji
       })
 
@@ -377,13 +379,17 @@ export default {
       })
 
       this.socket.on('playRecordedSound', (soundData) => {
-        console.log('working')
+        
         const audioBlob = new Blob([soundData], { type: 'audio/*' });
         const audioElement = new Audio();
         audioElement.src = URL.createObjectURL(audioBlob);
         document.body.appendChild(audioElement);
         audioElement.play();
       });
+      this.socket.on('recording',(data)=>{
+        if(data)this.trying=true;
+        else this.trying=false;
+      })
     },
 
     canvasupdate() {
