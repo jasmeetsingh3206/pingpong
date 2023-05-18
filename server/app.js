@@ -98,6 +98,8 @@ io.on("connection", (socket) => {
     socket.on("sendRecordedSound", (soundData) => {
       socket.broadcast.to(room).emit("playRecordedSound", soundData);
     });
+    socket.on('recording',(val)=>{
+      socket.broadcast.to(room).emit("recording",val); })
 
     const rooms = io.sockets.adapter.rooms.get(data.room);
 
