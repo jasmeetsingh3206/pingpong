@@ -1,55 +1,57 @@
 <template>
   <div>
     <main id="app">
-      <section ref="chatArea" id="chat-window" class="chat-area flex flex-col align-top  relative">
-      <div class="overflow-y-auto">
-        <p
-          v-for="(message, index) in messages"
-          class="message"
-          :class="{
-            'message-out': message.author === 'you',
-            'message-in': message.author !== 'you'
-          }"
-          :key="index"
-        >
-          {{ message.body }}
-        </p>
-    </div>
-        <div class="m-2">
-            <form autocomplete="off"
-              v-if="this.Store.haveCode == '5iztui'"
-              @submit.prevent="sendMessage('in')"
-              id="person1-form "
-            >
-              <input
-                v-model="bobMessage"
-                id="person1-input"
-                type="text"
-                placeholder="Type your message"
-              />
-              <button id="sendbutton" type="submit" >
-                <img @click="scrollup" class="h-7 ml-5" src="../images/email.png" />
-              </button>
-           
-            </form>
-            <form  autocomplete="off" v-else @submit.prevent="sendMessage('out')" id="person2-form" class="flex">
-                <input
-                  v-model="youMessage"
-                  id="person2-input"
-                  type="text"
-                  placeholder="Type your message"
-                />
-                <button id="sendbutton" type="submit">
-                  <img @click="scrollup" class="h-7 ml-5" src="../images/email.png" />
-                </button>
-              </form>
+      <section ref="chatArea" class="chat-area flex flex-col justify-end align-top relative">
+        <div class="overflow-y-auto scroll-smooth " id="chat-window">
+          <p
+            v-for="(message, index) in messages"
+            class="message"
+            :class="{
+              'message-out': message.author === 'you',
+              'message-in': message.author !== 'you'
+            }"
+            :key="index"
+          >
+            {{ message.body }}
+          </p>
         </div>
-
-        
+        <div class="m-2">
+          <form
+            autocomplete="off"
+            v-if="this.Store.haveCode == '5iztui'"
+            @submit.prevent="sendMessage('in')"
+            id="person1-form "
+          >
+            <input
+              v-model="bobMessage"
+              id="person1-input"
+              type="text"
+              placeholder="Type your message"
+            />
+            <button id="sendbutton" type="submit">
+              <img  class="h-7 ml-5" src="../images/email.png" />
+            </button>
+          </form>
+          <form
+            autocomplete="off"
+            v-else
+            @submit.prevent="sendMessage('out')"
+            id="person2-form"
+            class="flex"
+          >
+            <input
+              v-model="youMessage"
+              id="person2-input"
+              type="text"
+              placeholder="Type your message"
+            />
+            <button id="sendbutton" type="submit">
+              <img  class="h-7 ml-5" src="../images/email.png" />
+            </button>
+          </form>
+        </div>
       </section>
-
     </main>
-   
   </div>
 </template>
 
@@ -58,7 +60,7 @@ import { mapStores } from 'pinia'
 import { useMyStore } from '../store/havecode'
 
 export default {
-  name: 'chatbox',
+  name: "chatBox",
   computed: {
     ...mapStores(useMyStore)
   },
@@ -84,23 +86,21 @@ export default {
     }
   },
   methods: {
-   scrollup(){
-    debugger
-    let chatWindow = document.getElementById('chat-window'); 
-    var xH = chatWindow.scrollHeight; 
-    chatWindow.scrollTo(0, 0);
-  
-   },
+    scrollup() {
+     
+      let chatWindow = document.getElementById('chat-window')
+      chatWindow.scrollTop = chatWindow.scrollHeight+700;
+    },
     sendMessage(direction) {
       document.getElementById('sendbutton').style.opacity = '0'
- 
+
       if (!this.youMessage && !this.bobMessage) {
         setTimeout(() => {
-            document.getElementById('sendbutton').style.opacity = '1'
-          }, 80)
+          document.getElementById('sendbutton').style.opacity = '1'
+        }, 80)
         return
       }
-    
+
       if (direction === 'out') {
         this.messages.push({ body: this.youMessage, author: 'you' })
         this.youMessage = ''
@@ -113,10 +113,10 @@ export default {
       setTimeout(() => {
         document.getElementById('sendbutton').style.opacity = '1'
       }, 80)
-      Vue.nextTick(() => {
-        let messageDisplay = this.$refs.chatArea
-        messageDisplay.scrollTop = messageDisplay.scrollHeight
-      })
+      setTimeout(() => {
+        this.scrollup();
+      }, 0)
+      
     }
   },
   mounted() {
@@ -128,7 +128,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped >
 body,
 html {
   font-family: sans-serif;
@@ -142,18 +142,36 @@ html {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+::-webkit-scrollbar{
+  width: 8px;
+  
+}
+::-webkit-scrollbar :hover{
+  width: 20px;
+}
+::-webkit-scrollbar-track {
+  background-color: darkgrey;
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgb(124, 124, 124);
+  background: rgb(255, 0, 0);
+  border-radius: 5px;
+}
 .headline {
   text-align: center;
   font-weight: 100;
   color: white;
 }
+#chatWindow{
+    scroll-margin: 30px!important;
+}
 .chat-area {
   /*   border: 1px solid #ccc; */
   background: white;
   height: 50vh;
- 
-overflow:hidden;
- 
+
+  overflow: hidden;
+
   max-width: 350px;
   margin: 0 auto 2em auto;
   box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
@@ -180,9 +198,9 @@ overflow:hidden;
   margin-top: 13px;
   display: flex;
   justify-content: space-between;
- 
-position: relative;
-vertical-align: bottom;
+
+  position: relative;
+  vertical-align: bottom;
 }
 #person1-input {
   padding: 0.5em;
