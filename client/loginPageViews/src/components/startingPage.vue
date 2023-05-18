@@ -10,7 +10,7 @@
           <div>
             <div
               class="flex mt-2 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
-              v-if="invalid == 1"
+              v-if="this.invalid"
               role="alert"
             >
               <svg
@@ -54,7 +54,7 @@
             <button
               type="submit"
               @click.prevent="joinGame"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-lg"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-lg "
             >
               Join Room
             </button>
@@ -96,17 +96,18 @@ export default {
     joinGame() {
       this.myStoreStore.havecode = this.haveCode
 
-      if (this.haveCode != '' && this.haveCode.length == 6 && this.myStoreStore.myName != '') {
+      if ((this.haveCode !==''||this.haveCode !==null) && this.haveCode.length == 6 && (this.myStoreStore.myName !== ''||this.myStoreStore.myName !==null)) {
         this.$router.replace('/game')
       } else {
-        console.log(this.myStoreStore.myName ===null)
-        if (this.haveCode === ''&&this.myStoreStore.myName===null){
+        if ((this.haveCode ===''||this.haveCode ===null)&&(this.myStoreStore.myName === ''||this.myStoreStore.myName ===null)){
           this.invalid = 1
-        } else if (this.myStoreStore.myName ===null&&this.haveCode != '') {
+        } else if ((this.haveCode !==''||this.haveCode !==null)&&(this.myStoreStore.myName === ''||this.myStoreStore.myName ===null)) {
           this.invalid = 2
-        } else if(this.myStoreStore.myName !==null&&this.haveCode ===''){
+          
+        } else if((this.haveCode ===''||this.haveCode ===null)&&(this.myStoreStore.myName !== ''||this.myStoreStore.myName !==null)){
           this.invalid = 3
         }
+        console.log(this.invalid)
       }
       
     },
