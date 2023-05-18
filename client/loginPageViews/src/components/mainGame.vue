@@ -104,8 +104,8 @@
       <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 m-5 absolute top-0 left-2" />
-    <chatBox class="h-12 lg:h-25 m-5 absolute top-12 right-3"/>
-    <img src="../images/chat.png" class="h-12 lg:h-25 m-5 absolute top-4 right-3 " />
+    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-20  right-3 "/>
+    <img @click="showChat=!showChat" src="../images/chat.png" class="h-12 lg:h-25 m-5 absolute top-4 right-3 " />
   </div>
 </template>
 
@@ -119,7 +119,7 @@ import { useMyStore } from '../store/havecode'
 import { HollowDotsSpinner } from 'epic-spinners'
 import EmojiPicker from 'vue3-emoji-picker'
 // stylesheet
-import {chatBox} from '../components/chatBox.vue'
+import chatBox from '../components/chatBox.vue'
 import '../../node_modules/vue3-emoji-picker/dist/style.css'
 
 export default {
@@ -168,7 +168,8 @@ export default {
       mediaRecorder: null,
       recording: false,
       voiceButton: null,
-      trying: null
+      trying: null,
+      showChat:false,
     }
   },
   computed: {
