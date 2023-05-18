@@ -273,8 +273,8 @@ export default {
           // this.voiceButton.textContent = 'Record Voice';
         }
       })
-
       document.addEventListener('keydown', (event) => {
+        if(event.code==='Space')this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
             direction: 'left',
