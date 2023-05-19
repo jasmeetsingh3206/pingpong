@@ -6,7 +6,7 @@ export const useMyStore = defineStore('myStore', {
     clientcount: 0,
     socketid: '',
     restart: false,
-    myName: null,
+    myName: 'your name',
     opponentName: 'Waiting for opponent',
     selectedEmoji:null,
     opponentEmoji: null,
