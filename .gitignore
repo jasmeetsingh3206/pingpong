@@ -1,2 +1,3 @@
 client/loginPageViews/package-lock.json
 server/node_modules
+client/loginPageViews/src/SocketConnection.js

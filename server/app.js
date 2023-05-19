@@ -70,6 +70,7 @@ io.on("connection", (socket) => {
         emojyid: null,
         print: false,
         checkrestart: false,
+        pause:true,
       };
     }
     console.log(myArray);
