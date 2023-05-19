@@ -529,7 +529,7 @@ export default {
    
     },
     replay(){
-     debugger;
+     
       socket.emit('replay')
     }
   },

@@ -202,7 +202,8 @@ io.on("connection", (socket) => {
         roomdata[data.key].countP1 = data.countP1;
         roomdata[data.key].countP2 = data.countP2;
 
-        setInterval(() => {if(roomdata[room].pause){
+        setInterval(() => {
+          if(roomdata[room].pause){
           if (roomdata[data.key].check1_1 == false) {
             if (
               (roomdata[data.key].y_1 == 440 ||
@@ -351,14 +352,15 @@ io.on("connection", (socket) => {
                   ) {
                     let temp = "";
 
-                    if (roomdata[data.key].y_1 > 100) {
-                      temp = "PLAYER 2";
-                    } else {
-                      temp = "PLAYER 1";
-                    }
+                    if (roomdata[data.key].y_1 > 100) 
+                    temp = "PLAYER 2";
+                    else 
+                    temp = "PLAYER 1";
+
                     roomdata[data.key].checkrestart=true;
                     roomdata[data.key].print=true;
-                    io.to(room).emit("gameover", {
+                    io.to(room).emit("gameover", 
+                    {
                       gamestatus: "over",
                       winner: temp,
                       finalP1: roomdata[data.key].countP1,
@@ -369,9 +371,9 @@ io.on("connection", (socket) => {
                     
                     return;
                   }
-                } else {
+                } else
+                {
                   roomdata[data.key].goals_1 = roomdata[data.key].goals_1 - 1;
-
                   roomdata[data.key].dy_1 = -roomdata[data.key].dy_1;
                 }
               }
@@ -394,7 +396,7 @@ io.on("connection", (socket) => {
             check1_1: roomdata[data.key].check1_1,
           });
           console.log(roomdata[data.key]);
-        }, 20);
+        }}, 20);
         socket.on("replay", () => {
          
           roomdata[data.key].x_1 = 250;
