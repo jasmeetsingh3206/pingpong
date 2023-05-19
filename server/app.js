@@ -100,6 +100,13 @@ io.on("connection", (socket) => {
     socket.on("sendRecordedSound", (soundData) => {
       socket.broadcast.to(room).emit("playRecordedSound", soundData);
     });
+    socket.on('recording',(val)=>{
+      socket.broadcast.to(room).emit("recording",val); })
+      socket.on('space',()=>{
+       if(roomdata[room].pause)roomdata[room].pause=false;
+       else roomdata[room].pause=true;
+      })
+
 
     const rooms = io.sockets.adapter.rooms.get(data.room);
 
@@ -195,7 +202,7 @@ io.on("connection", (socket) => {
         roomdata[data.key].countP1 = data.countP1;
         roomdata[data.key].countP2 = data.countP2;
 
-        setInterval(() => {
+        setInterval(() => {if(roomdata[room].pause){
           if (roomdata[data.key].check1_1 == false) {
             if (
               (roomdata[data.key].y_1 == 440 ||

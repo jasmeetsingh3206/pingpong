@@ -1,7 +1,7 @@
 <template>
   <div>
     <main id="app">
-      <section ref="chatArea" class="chat-area flex flex-col justify-end align-top relative">
+      <section ref="chatArea" class="chat-area rounded-xl flex flex-col justify-end align-top shadow relative">
         <div class="overflow-y-auto scroll-smooth " id="chat-window">
           <p
             v-for="(message, index) in messages"
@@ -171,10 +171,9 @@ html {
   height: 50vh;
 
   overflow: hidden;
-
+  padding:0 4px 0 6px;
   max-width: 350px;
   margin: 0 auto 2em auto;
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
 }
 .message {
   width: 45%;
