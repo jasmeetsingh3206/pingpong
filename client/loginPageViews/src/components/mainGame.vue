@@ -63,8 +63,6 @@
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
     <button @click="replay">restart</button>
-<<<<<<< HEAD
-=======
     <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     <div class="absolute flex gap-1 top-4 right-3 ">
         <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
@@ -73,7 +71,6 @@
         <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
      
     </div>
->>>>>>> b7278d0190032b428a328f39da5d388b178188a2
   </div>
  
 </template>
@@ -401,7 +398,6 @@ export default {
         document.body.appendChild(audioElement)
         audioElement.play()
       })
-<<<<<<< HEAD
       this.socket.on('refresh',(data)=>{
         this.checkrestart=data.checkrestart
         this.print=data.print
@@ -411,13 +407,6 @@ export default {
         this.secondgreyX_1=data.secondgreyX_1
         this.dx_1=data.dx_1
         this.dy_1=data.dy_1
-=======
-      this.socket.on('refresh', (data) => {
-        this.checkrestart = data.checkrestart
-        this.print = data.print
-        this.countP1 = data.countP1
-        this.countP2 = data.countP2
->>>>>>> b7278d0190032b428a328f39da5d388b178188a2
       })
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
@@ -509,15 +498,9 @@ export default {
       ctx.clearRect(0, 0, 500, 500)
 
     },
-<<<<<<< HEAD
     replay(){
    
       this.socket.emit('replay')
-=======
-    replay() {
-
-      socket.emit('replay')
->>>>>>> b7278d0190032b428a328f39da5d388b178188a2
     }
   },
   beforeUnmount() {
