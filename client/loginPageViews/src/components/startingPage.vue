@@ -3,7 +3,9 @@
     <div class="flex flex-col items-center justify-center h-screen bg-green-100">
       <h1 class="wave-animation font-black text-3xl">Ping Pong</h1>
       <img class="rounded-xl md:mt-2 sm:m-5 h-80 sm:h-[55dvh]" src="../images/pong.png" alt="" />
-      
+      <div class="bar">
+        <div class="ball"></div>
+    </div>
       <div class="mt-6">
         <form class="flex items-center justify-center space-x-4 flex-wrap mr-4 flex-col">
           <label for="room-name" class="sr-only">Room Name:</label>
@@ -71,6 +73,7 @@
         
       </div>
     </div>
+   
   </div>
 </template>
 
@@ -182,6 +185,58 @@ h1 {
     transform: rotate(1deg);
   }
   100% {
+    transform: rotate(0deg);
+  }
+}
+.ball {
+  position: relative;
+  bottom: 50px;
+  left: calc(100% - 20px);
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 50%;
+  animation: ball-move8234 3s ease-in-out 1s infinite alternate;
+}
+
+.ball::after {
+  position: absolute;
+  content: '';
+  top: 25px;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  background: #000;
+  border-radius: 50%;
+}
+
+.bar {
+  width: 200px;
+  height: 12.5px;
+  background: #FFDAAF;
+  border-radius: 30px;
+  transform: rotate(-15deg);
+  animation: up-down6123 3s ease-in-out 1s infinite alternate;
+}
+
+@keyframes up-down6123 {
+  from {
+    transform: rotate(-15deg);
+  }
+
+  to {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes ball-move8234 {
+  from {
+    left: calc(100% - 40px);
+    transform: rotate(360deg);
+  }
+
+  to {
+    left: calc(0% - 20px);
     transform: rotate(0deg);
   }
 }

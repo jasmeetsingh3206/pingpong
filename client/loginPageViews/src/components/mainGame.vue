@@ -7,7 +7,7 @@
 
     <div>
       <button
-        v-if="checkrestart == true"
+        v-if="checkrestart === true"
         type="button"
         class="restart rounded-3xl"
         @click="restart"
@@ -15,7 +15,7 @@
         Play again
       </button>
     </div>
-    <div v-if="print == true" class="ola text-xl font-bold">
+    <div v-if="print === true" class="ola text-xl font-bold">
       <div>{{ countP1 }} - {{ countP2 }}</div>
       <h1>{{ winner }} WINS!!</h1>
     </div>
@@ -104,6 +104,7 @@
       <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 m-5 absolute top-0 left-2" />
+    <button @click="replay">restart</button>
   </div>
 </template>
 
@@ -402,6 +403,8 @@ export default {
       this.socket.on('gameover', (data) => {
         this.gameover = data.gamestatus
         this.winner = data.winner
+        this.checkrestart=data.checkrestart
+        this.print=data.print
         this.audio.pause()
         this.goalSound.pause()
         this.bounce_sound.pause()
@@ -423,6 +426,12 @@ export default {
         audioElement.src = URL.createObjectURL(audioBlob)
         document.body.appendChild(audioElement)
         audioElement.play()
+      })
+      this.socket.on('refresh',(data)=>{
+        this.checkrestart=data.checkrestart
+        this.print=data.print
+        this.countP1=data.countP1
+        this.countP2=data.countP2
       })
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
@@ -512,9 +521,11 @@ export default {
       const canvas = this.$refs.canvas
       const ctx = canvas.getContext('2d')
       ctx.clearRect(0, 0, 500, 500)
-      this.checkrestart = true
-
-      this.print = true
+   
+    },
+    replay(){
+     debugger;
+      socket.emit('replay')
     }
   },
   beforeUnmount() {

@@ -68,6 +68,8 @@ io.on("connection", (socket) => {
         player1name: "",
         player2name: "",
         emojyid: null,
+        print: false,
+        checkrestart: false,
       };
     }
     console.log(myArray);
@@ -347,13 +349,17 @@ io.on("connection", (socket) => {
                     } else {
                       temp = "PLAYER 1";
                     }
-
+                    roomdata[data.key].checkrestart=true;
+                    roomdata[data.key].print=true;
                     io.to(room).emit("gameover", {
                       gamestatus: "over",
                       winner: temp,
                       finalP1: roomdata[data.key].countP1,
                       finalP2: roomdata[data.key].countP2,
+                      checkrestart:roomdata[data.key].checkrestart,
+                      print:roomdata[data.key].checkrestart,
                     });
+                    
                     return;
                   }
                 } else {
@@ -380,7 +386,35 @@ io.on("connection", (socket) => {
             check_1: roomdata[data.key].check_1,
             check1_1: roomdata[data.key].check1_1,
           });
+          console.log(roomdata[data.key]);
         }, 20);
+        socket.on("replay", () => {
+         
+          roomdata[data.key].x_1 = 250;
+          roomdata[data.key].y_1 = 440;
+          // roomdata[data.key].dx_1 = data.dx_1;
+          // roomdata[data.key].dy_1 = data.dy_1;
+          // roomdata[data.key].radius_1 = data.radius_1;
+          // roomdata[data.key].goals_1 = data.goals_1;
+          // roomdata[data.key].gameover = data.gameover;
+          // roomdata[data.key].check1_1 = data.check1_1;
+          // roomdata[data.key].heighttemp_1 = data.heighttemp_1;
+          // roomdata[data.key].widthtemp_1 = data.widthtemp_1;
+          // roomdata[data.key].check_1 = data.check_1;
+          roomdata[data.key].countP1 = 0;
+          roomdata[data.key].countP2 = 0;
+          roomdata[data.key].secondgreyX_1 = 210;
+          roomdata[data.key].geryX_1 = 210;
+          roomdata[data.key].checkrestart=false;
+          roomdata[data.key].print=false;
+          
+          io.to(room).emit('refresh',{
+            checkrestart: roomdata[data.key].checkrestart,
+            print:roomdata[data.key].print,
+            countP1: roomdata[data.key].countP1,
+            countP2: roomdata[data.key].countP2
+          })
+        });
       }
     });
   });
