@@ -4,7 +4,7 @@
     <div class="flex justify-center">
       <span class="font-semibold text-xl mt-2">Room Code : {{ code }}</span>
     </div>
-
+    <button @click="replay">restart</button>
     <div>
       <button
         v-if="checkrestart === true"
@@ -105,9 +105,8 @@
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 m-5 absolute top-0 left-2" />
     <button @click="replay">restart</button>
-    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-20  right-3 "/>
-    <img @click="showChat=!showChat" src="../images/chat.png" class="h-12 lg:h-25 m-5 absolute top-4 right-3 " />
   </div>
+ 
 </template>
 
 <script>
@@ -437,6 +436,10 @@ export default {
         this.print=data.print
         this.countP1=data.countP1
         this.countP2=data.countP2
+        this.greyX_1=data.greyX_1
+        this.secondgreyX_1=data.secondgreyX_1
+        this.dx_1=data.dx_1
+        this.dy_1=data.dy_1
       })
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
@@ -529,8 +532,8 @@ export default {
    
     },
     replay(){
-     
-      socket.emit('replay')
+   
+      this.socket.emit('replay')
     }
   },
   beforeUnmount() {

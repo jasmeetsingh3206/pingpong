@@ -107,6 +107,7 @@ io.on("connection", (socket) => {
        else roomdata[room].pause=true;
       })
 
+     
 
     const rooms = io.sockets.adapter.rooms.get(data.room);
 
@@ -201,9 +202,10 @@ io.on("connection", (socket) => {
         roomdata[data.key].check_1 = data.check_1;
         roomdata[data.key].countP1 = data.countP1;
         roomdata[data.key].countP2 = data.countP2;
+        
 
         setInterval(() => {
-          if(roomdata[room].pause){
+          if(roomdata[data.key].pause){
           if (roomdata[data.key].check1_1 == false) {
             if (
               (roomdata[data.key].y_1 == 440 ||
@@ -395,36 +397,37 @@ io.on("connection", (socket) => {
             check_1: roomdata[data.key].check_1,
             check1_1: roomdata[data.key].check1_1,
           });
-          console.log(roomdata[data.key]);
+        console.log(numClients)
         }}, 20);
+   
+      
+      }
         socket.on("replay", () => {
-         
-          roomdata[data.key].x_1 = 250;
-          roomdata[data.key].y_1 = 440;
-          // roomdata[data.key].dx_1 = data.dx_1;
-          // roomdata[data.key].dy_1 = data.dy_1;
-          // roomdata[data.key].radius_1 = data.radius_1;
-          // roomdata[data.key].goals_1 = data.goals_1;
-          // roomdata[data.key].gameover = data.gameover;
-          // roomdata[data.key].check1_1 = data.check1_1;
-          // roomdata[data.key].heighttemp_1 = data.heighttemp_1;
-          // roomdata[data.key].widthtemp_1 = data.widthtemp_1;
-          // roomdata[data.key].check_1 = data.check_1;
-          roomdata[data.key].countP1 = 0;
-          roomdata[data.key].countP2 = 0;
-          roomdata[data.key].secondgreyX_1 = 210;
-          roomdata[data.key].geryX_1 = 210;
-          roomdata[data.key].checkrestart=false;
-          roomdata[data.key].print=false;
+         console.log("jhijdefjldsjfids")
+          roomdata[room].x_1 = 250; 
+        
+          roomdata[room].y_1 = 440;
+          roomdata[room].dx_1=4;
+          roomdata[room].dy_1=-4
+        
+          roomdata[room].countP1 = 0;
+          roomdata[room].countP2 = 0;
+          roomdata[room].secondgreyX_1 = 210;
+          roomdata[room].greyX_1 = 210;
+          roomdata[room].checkrestart=false;
+          roomdata[room].print=false;
           
           io.to(room).emit('refresh',{
-            checkrestart: roomdata[data.key].checkrestart,
-            print:roomdata[data.key].print,
-            countP1: roomdata[data.key].countP1,
-            countP2: roomdata[data.key].countP2
+            checkrestart: roomdata[room].checkrestart,
+            print:roomdata[room].print,
+            countP1: roomdata[room].countP1,
+            countP2: roomdata[room].countP2,
+            greyX_1: roomdata[room].greyX_1 ,
+            secondgreyX_1:roomdata[room].secondgreyX_1,
+           
           })
         });
-      }
+
     });
   });
 });
