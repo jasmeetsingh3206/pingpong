@@ -2,7 +2,7 @@
 <template>
   <div class="bg-green-100 h-screen flex flex-col items-center justify-evenly">
     <div class="flex justify-center">
-      <span class="font-semibold text-xl mt-2">Room Code : {{ code }}</span>
+      <span class="font-semibold lg:text-xl mt-2">Room Code : {{ code }}</span>
     </div>
 
     <div>
@@ -16,7 +16,7 @@
     </div>
     <div class="flex justify-center mt-3 h-fit">
       <div>
-        <span class="bg-blue-100 shadow-sm text-blue-800 text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded">
+        <span class="bg-blue-100 shadow-sm text-blue-800 lg:text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded">
           {{ Store.opponentName }}
         </span>
       </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
-      color="#3d8ab5" class="mt-2"/>
+      color="#3d8ab5" class="mt-2" />
     <canvas v-if="this.Store.havecode == '5iztui'" ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
       height="500" width="500"></canvas>
@@ -52,8 +52,7 @@
       <EmojiPicker v-if="Store.showEmojiPicker" @select="showEmoji" class="fixed lg:right-40 z-50 bottom-10"
         disable-skin-tones="true" display-recent="true" native="true" hide-group-icons="true"
         disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']" />
-      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl ">
+      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker" class="text-2xl ">
         {{ Store.selectedEmoji }}
       </button>
     </div>
@@ -66,11 +65,11 @@
     <button @click="replay">restart</button>
     <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     <div class="absolute flex gap-1 top-4 right-3 ">
-      <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />  
-      <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
-      <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
-      <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
-
+        <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
+        <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
+        <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
+        <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
+     
     </div>
   </div>
 </template>
@@ -506,6 +505,13 @@ export default {
 </script>
 
 <style scoped>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .flipimage {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
