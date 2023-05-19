@@ -1,7 +1,7 @@
 <template>
   <div>
     <main id="app">
-      <section ref="chatArea" class="chat-area rounded-xl flex flex-col justify-end align-top shadow relative">
+      <section ref="chatArea" class="chat-area rounded-xl flex flex-col justify-end align-top shadow-xl relative">
         <div class="overflow-y-auto scroll-smooth " id="chat-window">
           <p
             v-for="(message, index) in messages"
