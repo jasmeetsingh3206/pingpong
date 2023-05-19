@@ -4,7 +4,7 @@
     <div class="flex justify-center">
       <span class="font-semibold lg:text-xl mt-2">Room Code : {{ code }}</span>
     </div>
-
+    <button @click="replay">restart</button>
     <div>
       <button v-if="checkrestart === true" type="button" class="restart rounded-3xl" @click="restart">
         Play again
@@ -72,6 +72,7 @@
      
     </div>
   </div>
+ 
 </template>
 
 <script>
@@ -401,11 +402,15 @@ export default {
         document.body.appendChild(audioElement)
         audioElement.play()
       })
-      this.socket.on('refresh', (data) => {
-        this.checkrestart = data.checkrestart
-        this.print = data.print
-        this.countP1 = data.countP1
-        this.countP2 = data.countP2
+      this.socket.on('refresh',(data)=>{
+        this.checkrestart=data.checkrestart
+        this.print=data.print
+        this.countP1=data.countP1
+        this.countP2=data.countP2
+        this.greyX_1=data.greyX_1
+        this.secondgreyX_1=data.secondgreyX_1
+        this.dx_1=data.dx_1
+        this.dy_1=data.dy_1
       })
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
@@ -497,9 +502,9 @@ export default {
       ctx.clearRect(0, 0, 500, 500)
 
     },
-    replay() {
-
-      socket.emit('replay')
+    replay(){
+   
+      this.socket.emit('replay')
     }
   },
   beforeUnmount() {
