@@ -5,7 +5,9 @@
     "nodemon": "^2.0.22",
     "socket.io": "^4.6.1",
     "speaker": "^0.5.4",
-    "web-audio-api": "^0.2.2"
+    "web-audio-api": "^0.2.2",
+    "pinia": "^2.0.35",
+    "socket.io-client": "^4.6.1"
   },
   "scripts": {
     "start": "nodemon app.js"
