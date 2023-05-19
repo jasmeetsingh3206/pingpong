@@ -107,6 +107,7 @@
     <button @click="replay">restart</button>
     <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-20  right-3 "/>
     <img @click="showChat=!showChat" src="../images/chat.png" class="h-12 lg:h-25 m-5 absolute top-4 right-3 " />
+    <img @click="soundFlag=!soundFlag" src="../images/sound.gif" class="h-12 lg:h-25 m-5 absolute top-4 right-20 " />
   </div>
 </template>
 
@@ -171,6 +172,7 @@ export default {
       voiceButton: null,
       trying: null,
       showChat:false,
+      soundFlag:true,
     }
   },
   computed: {
