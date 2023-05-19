@@ -53,7 +53,7 @@
         disable-skin-tones="true" display-recent="true" native="true" hide-group-icons="true"
         disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']" />
       <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl animate-[bounce_.8s_ease-in-out_infinite]">
+        class="text-2xl ">
         {{ Store.selectedEmoji }}
       </button>
     </div>
@@ -64,12 +64,12 @@
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
     <button @click="replay">restart</button>
-    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16  right-2 " />
+    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     <div class="absolute flex gap-1 top-4 right-3 ">
-      <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2" />  
+      <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />  
       <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
-      <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3" />
-      <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2" />
+      <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
+      <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
 
     </div>
   </div>
