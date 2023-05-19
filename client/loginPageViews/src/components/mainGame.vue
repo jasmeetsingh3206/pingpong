@@ -6,12 +6,7 @@
     </div>
 
     <div>
-      <button
-        v-if="checkrestart === true"
-        type="button"
-        class="restart rounded-3xl"
-        @click="restart"
-      >
+      <button v-if="checkrestart === true" type="button" class="restart rounded-3xl" @click="restart">
         Play again
       </button>
     </div>
@@ -21,80 +16,44 @@
     </div>
     <div class="flex justify-center mt-3 h-fit">
       <div>
-        <span
-          class="bg-blue-100 shadow-sm text-blue-800 text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded"
-        >
+        <span class="bg-blue-100 shadow-sm text-blue-800 text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded">
           {{ Store.opponentName }}
         </span>
       </div>
 
-      <div
-        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit"
-      >
+      <div @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit">
         {{ Store.opponentEmoji }}
       </div>
       <div v-if="trying">
-        <img
-          src="../images/output-onlinegiftools.gif"
-          class="relative bottom-3 left-3 h-8 scale-[1.9]"
-        />
+        <img src="../images/output-onlinegiftools.gif" class="relative bottom-3 left-3 h-8 scale-[1.9]" />
       </div>
     </div>
-    <hollow-dots-spinner
-      v-if="Store.clientcount == 1"
-      :animation-duration="1000"
-      :dot-size="15"
-      :dots-num="3"
-      color="#3d8ab5"
-    />
-    <canvas
-      v-if="this.Store.havecode == '5iztui'"
-      ref="canvas"
+    <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
+      color="#3d8ab5" class="mt-2"/>
+    <canvas v-if="this.Store.havecode == '5iztui'" ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500"
-      width="500"
-    ></canvas>
-    <canvas
-      v-else-if="this.Store.havecode !== '5iztui'"
-      ref="canvas"
+      height="500" width="500"></canvas>
+    <canvas v-else-if="this.Store.havecode !== '5iztui'" ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500"
-      width="500"
-      v-bind:style="canvasrotation"
-    >
+      height="500" width="500" v-bind:style="canvasrotation">
     </canvas>
 
     <div class="flex mt-1">
       <div id="voiceButton" class="cursor-pointer relative py-2 scale-[1.3] mr-3">
         <img v-if="!recording" class="h-8 rounded-full mx-2" src="../images/podcast.png" />
-        <img
-          v-if="recording"
-          class="h-8 rounded-full mx-2 scale-[1.3]"
-          src="../images/podcast.gif"
-        />
+        <img v-if="recording" class="h-8 rounded-full mx-2 scale-[1.3]" src="../images/podcast.gif" />
       </div>
 
-      <button
-        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded"
-      >
+      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded">
         {{ Store.myName }}
       </button>
-      <EmojiPicker
-        v-if="Store.showEmojiPicker"
-        @select="showEmoji"
-        class="fixed lg:right-40 z-50 bottom-10"
-        disable-skin-tones="true"
-        display-recent="true"
-        native="true"
-        hide-group-icons="true"
-        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']"
-      />
-      <button
-        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl animate-[bounce_.8s_ease-in-out_infinite]"
-      >
+      <EmojiPicker v-if="Store.showEmojiPicker" @select="showEmoji" class="fixed lg:right-40 z-50 bottom-10"
+        disable-skin-tones="true" display-recent="true" native="true" hide-group-icons="true"
+        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']" />
+      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="text-2xl animate-[bounce_.8s_ease-in-out_infinite]">
         {{ Store.selectedEmoji }}
       </button>
     </div>
@@ -103,11 +62,16 @@
       <i class="fa fa-arrow-left h-14 mb-10 ml-9 text-5xl text-blue-900" @click="buttonLeft"></i>
       <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
     </div>
-    <img src="../images/logo.png" class="h-20 lg:h-80 m-5 absolute top-0 left-2" />
+    <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
     <button @click="replay">restart</button>
-    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-20  right-3 "/>
-    <img @click="showChat=!showChat" src="../images/chat.gif" class="h-12 lg:h-12 m-5 absolute top-4 right-3 " />
-    <img @click="soundFlag=!soundFlag" src="../images/sound.gif" class="h-12 lg:h-12 m-5 absolute top-4 right-20 " />
+    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16  right-2 " />
+    <div class="absolute flex gap-1 top-4 right-3 ">
+      <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2" />  
+      <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
+      <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3" />
+      <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2" />
+
+    </div>
   </div>
 </template>
 
@@ -171,8 +135,8 @@ export default {
       recording: false,
       voiceButton: null,
       trying: null,
-      showChat:false,
-      soundFlag:true,
+      showChat: false,
+      soundFlag: true,
     }
   },
   computed: {
@@ -277,7 +241,7 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-        if(event.code==='Space')this.socket.emit('space')
+        if (event.code === 'Space') this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
             direction: 'left',
@@ -396,11 +360,11 @@ export default {
         this.y_1 = data.y_cordinate_center
         this.dx_1 = data.xspeed
         this.dy_1 = data.yspeed
-        ;(this.radius_1 = data.radius_1),
-          (this.goals_1 = data.goals_1),
-          (this.gameover = data.gameover),
-          (this.check1_1 = data.check1_1),
-          (this.check_1 = data.check_1)
+          ; (this.radius_1 = data.radius_1),
+            (this.goals_1 = data.goals_1),
+            (this.gameover = data.gameover),
+            (this.check1_1 = data.check1_1),
+            (this.check_1 = data.check_1)
 
         this.canvasupdate()
       })
@@ -410,8 +374,8 @@ export default {
       this.socket.on('gameover', (data) => {
         this.gameover = data.gamestatus
         this.winner = data.winner
-        this.checkrestart=data.checkrestart
-        this.print=data.print
+        this.checkrestart = data.checkrestart
+        this.print = data.print
         this.audio.pause()
         this.goalSound.pause()
         this.bounce_sound.pause()
@@ -434,11 +398,11 @@ export default {
         document.body.appendChild(audioElement)
         audioElement.play()
       })
-      this.socket.on('refresh',(data)=>{
-        this.checkrestart=data.checkrestart
-        this.print=data.print
-        this.countP1=data.countP1
-        this.countP2=data.countP2
+      this.socket.on('refresh', (data) => {
+        this.checkrestart = data.checkrestart
+        this.print = data.print
+        this.countP1 = data.countP1
+        this.countP2 = data.countP2
       })
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
@@ -528,10 +492,10 @@ export default {
       const canvas = this.$refs.canvas
       const ctx = canvas.getContext('2d')
       ctx.clearRect(0, 0, 500, 500)
-   
+
     },
-    replay(){
-     
+    replay() {
+
       socket.emit('replay')
     }
   },
