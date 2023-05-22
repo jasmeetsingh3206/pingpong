@@ -4,95 +4,56 @@
     <div class="flex justify-center">
       <span class="font-semibold lg:text-xl mt-2">Room Code : {{ code }}</span>
     </div>
-  
+
     <div>
       <button v-if="checkrestart === true" @click="replay" class="restart rounded-3xl mt-12">Restart</button>
-      <button
-        v-if="checkrestart === true"
-        type="button"
-        class="restart rounded-3xl"
-        @click="restart"
-      >
-      Home
+      <button v-if="checkrestart === true" type="button" class="restart rounded-3xl" @click="restart">
+        Home
       </button>
     </div>
     <div v-if="print === true" class="ola text-xl font-bold">
       <div>{{ countP1 }} - {{ countP2 }}</div>
-      <h1>{{ winner }} WINS!!</h1>
+      <h1 v-if="winner == 'PLAYER 1'">{{ Store.myName }} WINS!!</h1>
+      <h1 v-else>{{ Store.opponentName }} WINS!!</h1>
     </div>
     <div class="flex justify-center mt-3 h-fit">
       <div>
-        <span
-          class="bg-blue-100 shadow-sm text-blue-800 lg:text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded"
-        >
+        <span class="bg-blue-100 shadow-sm text-blue-800 lg:text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded">
           {{ Store.opponentName }}
         </span>
       </div>
 
-      <div
-        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit"
-      >
+      <div @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit">
         {{ Store.opponentEmoji }}
       </div>
       <div v-if="trying">
-        <img
-          src="../images/output-onlinegiftools.gif"
-          class="relative bottom-3 left-3 h-8 scale-[1.9]"
-        />
+        <img src="../images/output-onlinegiftools.gif" class="relative bottom-3 left-3 h-8 scale-[1.9]" />
       </div>
     </div>
-    <hollow-dots-spinner
-      v-if="Store.clientcount == 1"
-      :animation-duration="1000"
-      :dot-size="15"
-      :dots-num="3"
-      color="#3d8ab5"
-      class="mt-2"
-    />
-    <canvas
-      v-if="this.Store.havecode == '5iztui'"
-      ref="canvas"
+    <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
+      color="#3d8ab5" class="mt-2" />
+    <canvas v-if="this.Store.havecode == '5iztui'" ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500"
-      width="500"
-    ></canvas>
-    <canvas
-      v-else-if="this.Store.havecode !== '5iztui'"
-      ref="canvas"
+      height="500" width="500"></canvas>
+    <canvas v-else-if="this.Store.havecode !== '5iztui'" ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500"
-      width="500"
-      v-bind:style="canvasrotation"
-    >
+      height="500" width="500" v-bind:style="canvasrotation">
     </canvas>
 
     <div class="flex mt-1">
       <div id="voiceButton" class="cursor-pointer relative py-2 scale-[1.3] mr-3">
         <img v-if="!recording" class="h-8 rounded-full mx-2" src="../images/podcast.png" />
-        <img
-          v-if="recording"
-          class="h-8 rounded-full mx-2 scale-[1.3]"
-          src="../images/podcast.gif"
-        />
+        <img v-if="recording" class="h-8 rounded-full mx-2 scale-[1.3]" src="../images/podcast.gif" />
       </div>
 
-      <button
-        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded"
-      >
+      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded">
         {{ Store.myName }}
       </button>
-      <EmojiPicker
-        v-if="Store.showEmojiPicker"
-        @select="showEmoji"
-        class="fixed lg:right-40 z-50 bottom-10"
-        disable-skin-tones="true"
-        display-recent="true"
-        native="true"
-        hide-group-icons="true"
-        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']"
-      />
+      <EmojiPicker v-if="Store.showEmojiPicker" @select="showEmoji" class="fixed lg:right-40 z-50 bottom-10"
+        disable-skin-tones="true" display-recent="true" native="true" hide-group-icons="true"
+        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']" />
       <button @click="Store.showEmojiPicker = !Store.showEmojiPicker" class="text-2xl">
         {{ Store.selectedEmoji }}
       </button>
@@ -103,15 +64,16 @@
       <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
-    <button @click="replay">restart</button>
-    
-    <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
+
+
+    <chatBox @some-event="sendMessage" v-if="showChat"
+      class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     <div class="absolute flex gap-1 top-4 right-3 ">
-        <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
-        <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
-        <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
-        <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
-     
+      <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
+      <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
+      <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
+      <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
+
     </div>
   </div>
 </template>
@@ -314,20 +276,21 @@ export default {
       this.audioElement.muted = !this.soundFlags
     },
 
-    sendMessage() {  
-     console.log("helloji");
-     console.log(this.Store.inputMessage)
-    if(this.Store.inputMessage){
-     socket.emit("messagePlayer",{
-      message:this.Store.inputMessage
-     })
-     this.Store.messages.push({
-      body:this.Store.inputMessage,
-      author:"you"
-    })}
-     this.Store.inputMessage="";
+    sendMessage() {
+      console.log("helloji");
+      console.log(this.Store.inputMessage)
+      if (this.Store.inputMessage) {
+        socket.emit("messagePlayer", {
+          message: this.Store.inputMessage
+        })
+        this.Store.messages.push({
+          body: this.Store.inputMessage,
+          author: "you"
+        })
+      }
+      this.Store.inputMessage = "";
     },
-    
+
     showEmoji(e) {
       this.Store.selectedEmoji = e.i
 
@@ -425,11 +388,11 @@ export default {
         this.y_1 = data.y_cordinate_center
         this.dx_1 = data.xspeed
         this.dy_1 = data.yspeed
-        ;(this.radius_1 = data.radius_1),
-          (this.goals_1 = data.goals_1),
-          (this.gameover = data.gameover),
-          (this.check1_1 = data.check1_1),
-          (this.check_1 = data.check_1)
+          ; (this.radius_1 = data.radius_1),
+            (this.goals_1 = data.goals_1),
+            (this.gameover = data.gameover),
+            (this.check1_1 = data.check1_1),
+            (this.check_1 = data.check_1)
 
         this.canvasupdate()
       })
@@ -457,12 +420,12 @@ export default {
       })
 
       this.socket.on('playRecordedSound', (soundData) => {
-        if(this.soundFlag){
+        if (this.soundFlag) {
           this.audioBlob = new Blob([soundData], { type: 'audio/*' })
-        this.audioElement = new Audio()
-        this.audioElement.src = URL.createObjectURL(this.audioBlob)
-        document.body.appendChild(this.audioElement)
-        this.audioElement.play()
+          this.audioElement = new Audio()
+          this.audioElement.src = URL.createObjectURL(this.audioBlob)
+          document.body.appendChild(this.audioElement)
+          this.audioElement.play()
         }
       })
       this.socket.on('refresh', (data) => {
@@ -479,12 +442,12 @@ export default {
         if (data) this.trying = true
         else this.trying = false
       })
-      this.socket.on('oppmessage',(data)=>{
-      console.log(data.Message)
-      this.Store.messages.push({
-        body:data.Message,
-        author:"bob"
-      })
+      this.socket.on('oppmessage', (data) => {
+        console.log(data.Message)
+        this.Store.messages.push({
+          body: data.Message,
+          author: "bob"
+        })
       })
     },
 
@@ -586,9 +549,15 @@ export default {
 .fade-leave-active {
   transition: opacity 0.1s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+  {
   opacity: 0;
 }
+
 .flipimage {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
