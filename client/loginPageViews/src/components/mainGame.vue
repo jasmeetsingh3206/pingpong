@@ -194,7 +194,9 @@ export default {
       voiceButton: null,
       trying: null,
       showChat: false,
-      soundFlag: true
+      soundFlag: true,
+      audioBlob:null,
+      audioElement:null
     }
   },
   computed: {
@@ -326,6 +328,7 @@ export default {
       this.audio.muted = !this.soundFlag
       this.goalSound.muted = !this.soundFlag
       this.bounce_sound.muted = !this.soundFlag
+      this.audioElement.muted=!this.soundFlag
     },
     showEmoji(e) {
       this.Store.selectedEmoji = e.i
@@ -456,11 +459,11 @@ export default {
       })
 
       this.socket.on('playRecordedSound', (soundData) => {
-        const audioBlob = new Blob([soundData], { type: 'audio/*' })
-        const audioElement = new Audio()
-        audioElement.src = URL.createObjectURL(audioBlob)
-        document.body.appendChild(audioElement)
-        audioElement.play()
+        this.audioBlob = new Blob([soundData], { type: 'audio/*' })
+        this.audioElement = new Audio()
+        this.audioElement.src = URL.createObjectURL(this.audioBlob)
+        document.body.appendChild(this.audioElement)
+        this.audioElement.play()
       })
       this.socket.on('refresh', (data) => {
         this.checkrestart = data.checkrestart
