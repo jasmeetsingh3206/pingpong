@@ -63,7 +63,8 @@
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
     <button @click="replay">restart</button>
-    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
+    
+    <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     <div class="absolute flex gap-1 top-4 right-3 ">
         <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
         <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
@@ -79,7 +80,7 @@
 // import io from 'socket.io-client';
 import socket from '@/SocketConnection.js'
 // import gameStarting from '@/components/gameStarting.vue'
-import { mapStores } from 'pinia'
+import { mapStores, storeToRefs } from 'pinia'
 import { useMyStore } from '../store/havecode'
 // import { PulseLoader } from 'vue-spinner/dist/vue-spinner.min.js'
 import { HollowDotsSpinner } from 'epic-spinners'
@@ -263,6 +264,21 @@ export default {
     }
   },
   methods: {
+
+    sendMessage() {  
+     console.log("helloji");
+     console.log(this.Store.inputMessage)
+    if(this.Store.inputMessage){
+     socket.emit("messagePlayer",{
+      message:this.Store.inputMessage
+     })
+     this.Store.messages.push({
+      body:this.Store.inputMessage,
+      author:"you"
+    })}
+     this.Store.inputMessage="";
+    },
+    
     showEmoji(e) {
       this.Store.selectedEmoji = e.i
 
@@ -411,6 +427,13 @@ export default {
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
         else this.trying = false
+      })
+      this.socket.on('oppmessage',(data)=>{
+      console.log(data.Message)
+      this.Store.messages.push({
+        body:data.Message,
+        author:"bob"
+      })
       })
     },
 

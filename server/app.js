@@ -71,6 +71,7 @@ io.on("connection", (socket) => {
         print: false,
         checkrestart: false,
         pause:true,
+        Message:''
       };
     }
     console.log(myArray);
@@ -106,6 +107,13 @@ io.on("connection", (socket) => {
       socket.on('space',()=>{
        if(roomdata[room].pause)roomdata[room].pause=false;
        else roomdata[room].pause=true;
+      })
+
+      socket.on('messagePlayer',(data)=>{
+        roomdata[room].Message=data.message
+        socket.broadcast.to(room).emit('oppmessage',{
+          Message:roomdata[room].Message
+        })
       })
 
      
