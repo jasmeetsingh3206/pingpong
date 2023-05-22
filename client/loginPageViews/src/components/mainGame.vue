@@ -103,7 +103,7 @@
       <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
-    <button @click="replay">restart</button>
+
     
     <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     <div class="absolute flex gap-1 top-4 right-3 ">
@@ -284,7 +284,7 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-        if (event.code === 'Space') this.socket.emit('space')
+        if (event.code === 'Space'&& !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
             direction: 'left',
