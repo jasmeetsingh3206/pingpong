@@ -3,8 +3,8 @@
     <div class="flex flex-col items-center justify-center h-screen bg-green-100">
       <h1 class="wave-animation font-black text-3xl">Ping Pong</h1>
       <img class="rounded-xl md:mt-2 sm:m-5 h-80 sm:h-[55dvh]" src="../images/pong.png" alt="" />
-     
-      <div class="mt-6">
+    
+      <div class="mt-2 md:mt-0">
         <form class="flex items-center justify-center space-x-4 flex-wrap mr-4 flex-col">
           <label for="room-name" class="sr-only">Room Name:</label>
           <div>
@@ -13,19 +13,6 @@
               v-if="this.invalid"
               role="alert"
             >
-            <!-- <svg
-              aria-hidden="true"
-              class="flex-shrink-0 inline w-5 h-5 mr-3"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clip-rule="evenodd"
-              ></path>
-            </svg> -->
               <span class="sr-only">Info</span>
               <div>
                 <span v-if="this.invalid === 1" class="font-medium">Invalid Room Id and Name</span>
@@ -33,39 +20,41 @@
                 <span v-if="this.invalid === 3" class="font-medium">Invalid Room Id</span>
               </div>
             </div>
-            <input
-              id="my-name"
-              type="text"
-        
-              placeholder="Enter your name here"
-              v-model="myStoreStore.myName"
-              class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-64 mb-4 shadow-lg"
-            />
-
-            <input
-              id="room-name"
-              type="text"
-              placeholder="Enter Code"
-              v-model="haveCode"
-              class="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-64 mb-4 shadow-lg"
-            />
-          </div>
-          <div class="flex justify-items-center">
-            <button
-              type="submit"
-              @click.prevent="joinGame"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-lg "
-            >
-              Join Room
-            </button>
-            <button
-              type="submit"
-              @click.prevent="maingame"
-              class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md ml-3 shadow-lg"
-            >
-              Create Room
-            </button>
-          </div>
+            <div class="flex justify-items-center">
+              <input
+                id="my-name"
+                type="text"
+          
+                placeholder="Enter your name"
+                v-model="myStoreStore.myName"
+                class="border border-gray-300 rounded-md px-4 py-2 w-40 mr-2 sm:w-40 mb-4 shadow-lg"
+              />
+  
+              <input
+                id="room-name"
+                type="text"
+                placeholder="Enter Code"
+                v-model="haveCode"
+                class="border border-gray-300 rounded-md px-4 py-2 w-40 sm:w-40 mb-4 shadow-lg"
+              />
+            </div>
+            </div>
+            <div class="flex justify-items-center">
+              <button
+                type="submit"
+                @click.prevent="joinGame"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-3 rounded-md shadow-lg "
+              >
+                Join Room
+              </button>
+              <button
+                type="submit"
+                @click.prevent="maingame"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md ml- shadow-lg"
+              >
+                Create Room
+              </button>
+            </div>
         </form>
         <div v-if="myStoreStore.restart == true">{{ restartMessage() }}</div>
         

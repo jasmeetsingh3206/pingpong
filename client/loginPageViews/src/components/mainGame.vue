@@ -4,15 +4,16 @@
     <div class="flex justify-center">
       <span class="font-semibold lg:text-xl mt-2">Room Code : {{ code }}</span>
     </div>
-    <button @click="replay">restart</button>
+  
     <div>
+      <button v-if="checkrestart === true" @click="replay" class="restart rounded-3xl mt-12">Restart</button>
       <button
         v-if="checkrestart === true"
         type="button"
         class="restart rounded-3xl"
         @click="restart"
       >
-        Play again
+      Home
       </button>
     </div>
     <div v-if="print === true" class="ola text-xl font-bold">
@@ -102,7 +103,7 @@
       <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
-    <button @click="replay">restart</button>
+
     <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0 lg:right-2 z-50" />
     <div class="absolute flex gap-1 top-4 right-3 mr-2">
       <img
@@ -623,7 +624,7 @@ export default {
   display: flex;
   justify-content: center;
   position: relative;
-  top: 23%;
+  top: 29%;
   z-index: 999;
   flex-direction: column;
   flex-wrap: wrap;
