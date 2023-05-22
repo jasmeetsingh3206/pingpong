@@ -105,8 +105,9 @@
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
 
-    
-    <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
+    <Transition name="slide-fade">
+          <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
+    </Transition>
     <div class="absolute flex gap-1 top-4 right-3 ">
         <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
         <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
@@ -583,13 +584,21 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-50px);
   opacity: 0;
 }
+
 .flipimage {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
