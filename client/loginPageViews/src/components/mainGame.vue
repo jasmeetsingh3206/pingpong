@@ -595,7 +595,7 @@ export default {
 
 .slide-fade-enter-from,
 .slide-fade-leave-to {
-  transform: translateY(-50px);
+  transform: translateY(-40px);
   opacity: 0;
 }
 
