@@ -4,10 +4,16 @@
     <div class="flex justify-center">
       <span class="font-semibold lg:text-xl mt-2">Room Code : {{ code }}</span>
     </div>
-    <button @click="replay">restart</button>
+  
     <div>
-      <button v-if="checkrestart === true" type="button" class="restart rounded-3xl" @click="restart">
-        Play again
+      <button v-if="checkrestart === true" @click="replay" class="restart rounded-3xl mt-12">Restart</button>
+      <button
+        v-if="checkrestart === true"
+        type="button"
+        class="restart rounded-3xl"
+        @click="restart"
+      >
+      Home
       </button>
     </div>
     <div v-if="print === true" class="ola text-xl font-bold">
@@ -16,43 +22,78 @@
     </div>
     <div class="flex justify-center mt-3 h-fit">
       <div>
-        <span class="bg-blue-100 shadow-sm text-blue-800 lg:text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded">
+        <span
+          class="bg-blue-100 shadow-sm text-blue-800 lg:text-xl h-fit font-medium mr-2 px-2.5 py-0.5 rounded"
+        >
           {{ Store.opponentName }}
         </span>
       </div>
 
-      <div @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit">
+      <div
+        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="text-2xl hover:cursor-pointer animate-[bounce.6s_ease-in-out_infinite] h-fit"
+      >
         {{ Store.opponentEmoji }}
       </div>
       <div v-if="trying">
-        <img src="../images/output-onlinegiftools.gif" class="relative bottom-3 left-3 h-8 scale-[1.9]" />
+        <img
+          src="../images/output-onlinegiftools.gif"
+          class="relative bottom-3 left-3 h-8 scale-[1.9]"
+        />
       </div>
     </div>
-    <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
-      color="#3d8ab5" class="mt-2" />
-    <canvas v-if="this.Store.havecode == '5iztui'" ref="canvas"
+    <hollow-dots-spinner
+      v-if="Store.clientcount == 1"
+      :animation-duration="1000"
+      :dot-size="15"
+      :dots-num="3"
+      color="#3d8ab5"
+      class="mt-2"
+    />
+    <canvas
+      v-if="this.Store.havecode == '5iztui'"
+      ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500" width="500"></canvas>
-    <canvas v-else-if="this.Store.havecode !== '5iztui'" ref="canvas"
+      height="500"
+      width="500"
+    ></canvas>
+    <canvas
+      v-else-if="this.Store.havecode !== '5iztui'"
+      ref="canvas"
       class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust shadow-md h-[45dvh] lg:h-[63dvh]"
-      height="500" width="500" v-bind:style="canvasrotation">
+      height="500"
+      width="500"
+      v-bind:style="canvasrotation"
+    >
     </canvas>
 
     <div class="flex mt-1">
       <div id="voiceButton" class="cursor-pointer relative py-2 scale-[1.3] mr-3">
         <img v-if="!recording" class="h-8 rounded-full mx-2" src="../images/podcast.png" />
-        <img v-if="recording" class="h-8 rounded-full mx-2 scale-[1.3]" src="../images/podcast.gif" />
+        <img
+          v-if="recording"
+          class="h-8 rounded-full mx-2 scale-[1.3]"
+          src="../images/podcast.gif"
+        />
       </div>
 
-      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker"
-        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded">
+      <button
+        @click="Store.showEmojiPicker = !Store.showEmojiPicker"
+        class="bg-blue-100 shadow-md text-blue-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded"
+      >
         {{ Store.myName }}
       </button>
-      <EmojiPicker v-if="Store.showEmojiPicker" @select="showEmoji" class="fixed lg:right-40 z-50 bottom-10"
-        disable-skin-tones="true" display-recent="true" native="true" hide-group-icons="true"
-        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']" />
-      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker" class="text-2xl ">
+      <EmojiPicker
+        v-if="Store.showEmojiPicker"
+        @select="showEmoji"
+        class="fixed lg:right-40 z-50 bottom-10"
+        disable-skin-tones="true"
+        display-recent="true"
+        native="true"
+        hide-group-icons="true"
+        disabled-groups="['animals_nature', 'objects', 'symbols', 'travel_places']"
+      />
+      <button @click="Store.showEmojiPicker = !Store.showEmojiPicker" class="text-2xl">
         {{ Store.selectedEmoji }}
       </button>
     </div>
@@ -73,7 +114,6 @@
      
     </div>
   </div>
- 
 </template>
 
 <script>
@@ -129,15 +169,17 @@ export default {
       paddel2Velocity: 0,
       checkrestart: false,
       print: false,
-      audio: null,
-      bounce_sound: null,
-      goalSound: null,
+      audio: null, //audio
+      bounce_sound: null, //audio
+      goalSound: null, //audio
       mediaRecorder: null,
       recording: false,
       voiceButton: null,
       trying: null,
       showChat: false,
       soundFlag: true,
+      audioBlob: null,
+      audioElement: null
     }
   },
   computed: {
@@ -264,6 +306,13 @@ export default {
     }
   },
   methods: {
+    soundToggle() {
+      this.soundFlag = !this.soundFlag
+      this.audio.muted = !this.soundFlag
+      this.goalSound.muted = !this.soundFlag
+      this.bounce_sound.muted = !this.soundFlag
+      this.audioElement.muted = !this.soundFlags
+    },
 
     sendMessage() {  
      console.log("helloji");
@@ -376,11 +425,11 @@ export default {
         this.y_1 = data.y_cordinate_center
         this.dx_1 = data.xspeed
         this.dy_1 = data.yspeed
-          ; (this.radius_1 = data.radius_1),
-            (this.goals_1 = data.goals_1),
-            (this.gameover = data.gameover),
-            (this.check1_1 = data.check1_1),
-            (this.check_1 = data.check_1)
+        ;(this.radius_1 = data.radius_1),
+          (this.goals_1 = data.goals_1),
+          (this.gameover = data.gameover),
+          (this.check1_1 = data.check1_1),
+          (this.check_1 = data.check_1)
 
         this.canvasupdate()
       })
@@ -408,21 +457,23 @@ export default {
       })
 
       this.socket.on('playRecordedSound', (soundData) => {
-        const audioBlob = new Blob([soundData], { type: 'audio/*' })
-        const audioElement = new Audio()
-        audioElement.src = URL.createObjectURL(audioBlob)
-        document.body.appendChild(audioElement)
-        audioElement.play()
+        if(this.soundFlag){
+          this.audioBlob = new Blob([soundData], { type: 'audio/*' })
+        this.audioElement = new Audio()
+        this.audioElement.src = URL.createObjectURL(this.audioBlob)
+        document.body.appendChild(this.audioElement)
+        this.audioElement.play()
+        }
       })
-      this.socket.on('refresh',(data)=>{
-        this.checkrestart=data.checkrestart
-        this.print=data.print
-        this.countP1=data.countP1
-        this.countP2=data.countP2
-        this.greyX_1=data.greyX_1
-        this.secondgreyX_1=data.secondgreyX_1
-        this.dx_1=data.dx_1
-        this.dy_1=data.dy_1
+      this.socket.on('refresh', (data) => {
+        this.checkrestart = data.checkrestart
+        this.print = data.print
+        this.countP1 = data.countP1
+        this.countP2 = data.countP2
+        this.greyX_1 = data.greyX_1
+        this.secondgreyX_1 = data.secondgreyX_1
+        this.dx_1 = data.dx_1
+        this.dy_1 = data.dy_1
       })
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
@@ -519,10 +570,8 @@ export default {
       const canvas = this.$refs.canvas
       const ctx = canvas.getContext('2d')
       ctx.clearRect(0, 0, 500, 500)
-
     },
-    replay(){
-   
+    replay() {
       this.socket.emit('replay')
     }
   },
@@ -533,9 +582,9 @@ export default {
 </script>
 
 <style scoped>
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .1s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
@@ -579,7 +628,7 @@ export default {
   display: flex;
   justify-content: center;
   position: relative;
-  top: 23%;
+  top: 29%;
   z-index: 999;
   flex-direction: column;
   flex-wrap: wrap;
