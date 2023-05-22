@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-//s://airhockey.onrender.com
-const socket = io('http://localhost:3001/', {
+//s://paddleprodigybackend.onrender.com
+const socket = io('https://paddleprodigybackend.onrender.com', {
     transports: ['websocket'],
     extraHeaders: {
       'Access-Control-Allow-Origin': 'http://localhost:5173' 
