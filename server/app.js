@@ -356,9 +356,9 @@ io.on("connection", (socket) => {
                     let temp = "";
 
                     if (roomdata[data.key].y_1 > 100) 
-                    temp = "PLAYER 2";
+                    temp =player2name;
                     else 
-                    temp = "PLAYER 1";
+                    temp =player1name;
 
                     roomdata[data.key].checkrestart=true;
                     roomdata[data.key].print=true;
