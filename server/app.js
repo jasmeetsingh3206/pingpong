@@ -140,7 +140,7 @@ io.on("connection", (socket) => {
     console.log(client1Id, client2Id + "we are the two clients");
     socket.on("movePaddle", (data) => {
       if (numClients == 2) {
-        let speed = 30;
+        let speed = 60;
         let count1 = 0;
         let count2 = 0;
         let count3 = 0;
@@ -407,7 +407,7 @@ io.on("connection", (socket) => {
             check1_1: roomdata[data.key].check1_1,
           });
         console.log(numClients)
-        }}, 18);
+        }}, 20);
    
       
       }

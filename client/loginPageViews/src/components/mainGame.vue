@@ -181,7 +181,8 @@ export default {
       showChat: false,
       soundFlag: true,
       audioBlob: null,
-      audioElement: null
+      audioElement: null,
+      winner:''
     }
   },
   computed: {
@@ -393,7 +394,7 @@ export default {
         widthtemp_1: 500,
         heighttemp_1: 500,
         key: this.Store.havecode,
-        winner: '',
+       
         countP1: this.countP1,
         countP2: this.countP2,
         paddel1Velocity: this.paddel1Velocity,
@@ -441,6 +442,8 @@ export default {
       this.socket.on('gameover', (data) => {
         this.gameover = data.gamestatus
         this.winner = data.winner
+        console.log(data)
+        console.log(this.winner)
         this.checkrestart = data.checkrestart
         this.print = data.print
         this.audio.pause()
