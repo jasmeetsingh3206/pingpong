@@ -140,7 +140,7 @@ io.on("connection", (socket) => {
     console.log(client1Id, client2Id + "we are the two clients");
     socket.on("movePaddle", (data) => {
       if (numClients == 2) {
-        let speed = 20;
+        let speed = 30;
         let count1 = 0;
         let count2 = 0;
         let count3 = 0;
@@ -151,7 +151,7 @@ io.on("connection", (socket) => {
           console.log(roomdata[data.key].direction);
           console.log(roomdata[data.key].socketid);
           if (client1Id === data.socketID && roomdata[data.key].greyX_1 > 0) {
-            count1 = count1 + 5;
+            count1 = count1 + 10;
             count3 = 0;
 
             roomdata[data.key].greyX_1 = data.value - speed - count1;
@@ -159,7 +159,7 @@ io.on("connection", (socket) => {
             client2Id === data.socketID &&
             roomdata[data.key].secondgreyX_1 < 420
           ) {
-            count2 = count2 + 5;
+            count2 = count2 + 10;
             count4 = 0;
             roomdata[data.key].secondgreyX_1 =
               data.secondvalue + speed + count4;
@@ -171,13 +171,13 @@ io.on("connection", (socket) => {
           roomdata[data.key].direction = data.direction;
           if (client1Id === data.socketID && roomdata[data.key].greyX_1 < 420) {
             count1 = 0;
-            count3 = count3 + 5;
+            count3 = count3 + 10;
             roomdata[data.key].greyX_1 = data.value + speed + count3;
           } else if (
             client2Id === data.socketID &&
             roomdata[data.key].secondgreyX_1 > 0
           ) {
-            count4 = count4 + 5;
+            count4 = count4 + 10;
             count2 = 0;
             roomdata[data.key].secondgreyX_1 =
               data.secondvalue - speed - count2;
@@ -364,9 +364,9 @@ io.on("connection", (socket) => {
                     let temp = "";
 
                     if (roomdata[data.key].y_1 > 100) 
-                    temp = "PLAYER 2";
+                    temp = roomdata[data.key].player2name;
                     else 
-                    temp = "PLAYER 1";
+                    temp = roomdata[data.key].player1name;
 
                     roomdata[data.key].checkrestart=true;
                     roomdata[data.key].print=true;
@@ -407,7 +407,7 @@ io.on("connection", (socket) => {
             check1_1: roomdata[data.key].check1_1,
           });
         console.log(numClients)
-        }}, 20);
+        }}, 18);
    
       
       }

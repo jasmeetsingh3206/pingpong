@@ -18,8 +18,8 @@
     </div>
     <div v-if="print === true" class="ola text-xl font-bold">
       <div>{{ countP1 }} - {{ countP2 }}</div>
-      <h1 v-if="winner=='PLAYER 1'">{{ Store.myName }} WINS!!</h1>
-      <h1 v-else>{{ Store.opponentName }} WINS!!</h1>
+      <h1>{{ winner }} WINS!!</h1>
+     
     </div>
     <div class="flex justify-center mt-3 h-fit">
       <div>
