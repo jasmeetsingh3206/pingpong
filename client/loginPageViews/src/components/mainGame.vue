@@ -112,9 +112,9 @@
     <div class="absolute flex gap-1 top-4 right-3 ">
         <img v-if="!soundFlag" @click="soundToggle" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
         <img v-if="soundFlag" @click="soundToggle" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
-        <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
+        <img v-if="!showChat&&!notifaction" @click="showNotification" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
         <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
-     
+        <img v-if="notifaction&&!showChat" @click="showNotification" src="../images/nlogo.png" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
     </div>
   </div>
 </template>
@@ -183,7 +183,8 @@ export default {
       soundFlag: true,
       audioBlob: null,
       audioElement: null,
-      winner:''
+      winner:'',
+      notifaction:false
     }
   },
   computed: {
@@ -309,7 +310,11 @@ export default {
       })
     }
   },
-  methods: {
+  methods: {showNotification(){
+    this.showChat = !this.showChat
+    this.notifaction=false
+    
+  },
     soundToggle() {
       this.soundFlag = !this.soundFlag
       this.audio.muted = !this.soundFlag
@@ -487,6 +492,7 @@ export default {
       })
       this.socket.on('oppmessage',(data)=>{
       console.log(data.Message)
+      if(!this.showChat)this.notifaction=true;
       this.Store.messages.push({
         body:data.Message,
         author:"bob"
