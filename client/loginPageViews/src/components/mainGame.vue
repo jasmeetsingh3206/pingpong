@@ -108,9 +108,10 @@
     <Transition name="slide-fade">
           <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
     </Transition>
+   
     <div class="absolute flex gap-1 top-4 right-3 ">
-        <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
-        <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
+        <img v-if="!soundFlag" @click="soundToggle" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
+        <img v-if="soundFlag" @click="soundToggle" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
         <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
         <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
      
@@ -394,7 +395,7 @@ export default {
         widthtemp_1: 500,
         heighttemp_1: 500,
         key: this.Store.havecode,
-       
+      
         countP1: this.countP1,
         countP2: this.countP2,
         paddel1Velocity: this.paddel1Velocity,
