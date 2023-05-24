@@ -19,6 +19,7 @@
     <div v-if="print === true" class="ola text-xl font-bold">
       <div>{{ countP1 }} - {{ countP2 }}</div>
       <h1>{{ winner }} WINS!!</h1>
+     
     </div>
     <div class="flex justify-center mt-3 h-fit">
       <div>
@@ -104,32 +105,15 @@
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
 
-    <chatBox v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0 lg:right-2 z-50" />
-    <div class="absolute flex gap-1 top-4 right-3 mr-2">
-      <img
-        v-if="!soundFlag"
-        @click="soundToggle"
-        src="../images/mute.gif"
-        class="h-10 lg:h-12 lg:m-2"
-      />
-      <img
-        v-if="soundFlag"
-        @click="soundToggle"
-        src="../images/sound.gif"
-        class="h-10 lg:h-12 lg:m-2"
-      />
-      <img
-        v-if="!showChat"
-        @click="showChat = !showChat"
-        src="../images/chat.png"
-        class="h-10 lg:h-10 lg:m-3 lg:ml-0"
-      />
-      <img
-        v-if="showChat"
-        @click="showChat = !showChat"
-        src="../images/chat.gif"
-        class="h-12 lg:h-12 lg:m-2 lg:ml-0"
-      />
+    <Transition name="slide-fade">
+          <chatBox @some-event="sendMessage"  v-if="showChat" class="h-12 lg:h-25 m-5 absolute top-16 right-0  lg:right-2 z-50 " />
+    </Transition>
+    <div class="absolute flex gap-1 top-4 right-3 ">
+        <img v-if="!soundFlag" @click="soundFlag = !soundFlag" src="../images/mute.gif" class="h-10 lg:h-12 lg:m-2 " />
+        <img v-if="soundFlag" @click="soundFlag = !soundFlag" src="../images/sound.gif" class="h-10 lg:h-12 lg:m-2" />
+        <img v-if="!showChat" @click="showChat = !showChat" src="../images/chat.png" class="h-10  lg:h-10 lg:m-3 lg:ml-0" />
+        <img v-if="showChat" @click="showChat = !showChat" src="../images/chat.gif" class="h-12 lg:h-12 lg:m-2 lg:ml-0" />
+     
     </div>
   </div>
 </template>
@@ -197,7 +181,8 @@ export default {
       showChat: false,
       soundFlag: true,
       audioBlob: null,
-      audioElement: null
+      audioElement: null,
+      winner:''
     }
   },
   computed: {
@@ -302,7 +287,7 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-        if (event.code === 'Space') this.socket.emit('space')
+        if (event.code === 'Space'&& !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
             direction: 'left',
@@ -331,6 +316,21 @@ export default {
       this.bounce_sound.muted = !this.soundFlag
       this.audioElement.muted = !this.soundFlags
     },
+
+    sendMessage() {  
+     console.log("helloji");
+     console.log(this.Store.inputMessage)
+    if(this.Store.inputMessage){
+     socket.emit("messagePlayer",{
+      message:this.Store.inputMessage
+     })
+     this.Store.messages.push({
+      body:this.Store.inputMessage,
+      author:"you"
+    })}
+     this.Store.inputMessage="";
+    },
+    
     showEmoji(e) {
       this.Store.selectedEmoji = e.i
 
@@ -394,7 +394,7 @@ export default {
         widthtemp_1: 500,
         heighttemp_1: 500,
         key: this.Store.havecode,
-        winner: '',
+       
         countP1: this.countP1,
         countP2: this.countP2,
         paddel1Velocity: this.paddel1Velocity,
@@ -442,6 +442,8 @@ export default {
       this.socket.on('gameover', (data) => {
         this.gameover = data.gamestatus
         this.winner = data.winner
+        console.log(data)
+        console.log(this.winner)
         this.checkrestart = data.checkrestart
         this.print = data.print
         this.audio.pause()
@@ -481,6 +483,13 @@ export default {
       this.socket.on('recording', (data) => {
         if (data) this.trying = true
         else this.trying = false
+      })
+      this.socket.on('oppmessage',(data)=>{
+      console.log(data.Message)
+      this.Store.messages.push({
+        body:data.Message,
+        author:"bob"
+      })
       })
     },
 
@@ -578,13 +587,21 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s;
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-40px);
   opacity: 0;
 }
+
 .flipimage {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);

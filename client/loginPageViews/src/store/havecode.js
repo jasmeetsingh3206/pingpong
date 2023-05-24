@@ -11,5 +11,17 @@ export const useMyStore = defineStore('myStore', {
     selectedEmoji:null,
     opponentEmoji: null,
     showEmojiPicker:false,
-  })
+    bobMessage: '',
+    youMessage: '',
+    messages: [
+    
+    ],
+    inputMessage:""
+  }),
+  actions: {
+    setVariable(value1,value2) {
+      this.bobMessage = value1
+      this.youMessage=value2
+    }
+  }
 })
