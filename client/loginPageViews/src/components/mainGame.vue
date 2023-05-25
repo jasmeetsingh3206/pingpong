@@ -34,10 +34,10 @@
     <hollow-dots-spinner v-if="Store.clientcount == 1" :animation-duration="1000" :dot-size="15" :dots-num="3"
       color="#3d8ab5" class="mt-2" />
     <canvas v-if="this.Store.havecode == '5iztui'" ref="canvas"
-      class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
+      class="rounded-xl bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 border-black z-10 cust shadow-md h-[45dvh] lg:h-[63dvh]"
       height="500" width="500"></canvas>
     <canvas v-else-if="this.Store.havecode !== '5iztui'" ref="canvas"
-      class="rounded bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust shadow-md h-[45dvh] lg:h-[63dvh]"
+      class="rounded--xl bg-gradient-to-r from-teal-200 to-teal-300 m-auto mt-6 mb-4 z-10 border-black cust shadow-md h-[45dvh] lg:h-[63dvh]"
       height="500" width="500" v-bind:style="canvasrotation">
     </canvas>
 
