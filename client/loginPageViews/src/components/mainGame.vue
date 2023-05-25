@@ -5,15 +5,15 @@
       <span class="font-semibold lg:text-xl mt-2">Room Code : {{ code }}</span>
     </div>
 
-    <div>
+    <div class="z-20">
       <button v-if="checkrestart === true" @click="replay" class="restart rounded-3xl mt-12">Restart</button>
       <button v-if="checkrestart === true" type="button" class="restart rounded-3xl" @click="restart">
         Home
       </button>
     </div>
-    <div v-if="print === true" class="ola text-xl font-bold">
-      <div>{{ countP1 }} - {{ countP2 }}</div>
-      <h1>{{ winner }} WINS!!</h1>
+    <div  v-if="print === true" class=" z-20 ola text-xl font-bold">
+      <div class="z-20">{{ countP1 }} - {{ countP2 }}</div>
+      <h1 class="z-20">{{ winner }} WINS!!</h1>
 
     </div>
     <div class="flex justify-center mt-3 h-fit">
@@ -82,7 +82,7 @@
         <img  @click="showNotification" src="../images/chat.png"
         class="h-10  lg:h-10 lg:m-3 lg:ml-0" />        
         <span
-          v-if="notifaction" class="top-[-4px] lg:top-[3px] lg:right-2 right-[-2px] absolute  animate-[ping_1.2s_ease-in-out_infinite]  w-3.5 h-3.5 bg-orange-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+          v-if="notifaction" class="top-[-4px] lg:top-[3px] lg:right-2 right-[-2px] absolute  animate-[ping_1.2s_ease-in-out_infinite]  w-3 h-3 bg-orange-500  dark:border-gray-800 rounded-full"></span>
       </div>
        
       <!-- <img v-if="notifaction && !showChat" @click="showNotification" src="../images/nlogo.png"
@@ -112,9 +112,9 @@ export default {
     chatBox
   },
   watch: {
-    'Store.clientcount'(newVal) {
-      if (newVal === 2 && this.audio.paused) this.audio.play()
-    }
+    // 'Store.clientcount'(newVal) {
+    //   if (newVal === 2 && this.audio.paused) this.audio.play()
+    // }
   },
 
   data() {
@@ -144,7 +144,7 @@ export default {
       paddel2Velocity: 0,
       checkrestart: false,
       print: false,
-      audio: null, //audio
+      // audio: null, //audio
       bounce_sound: null, //audio
       goalSound: null, //audio
       mediaRecorder: null,
@@ -221,10 +221,10 @@ export default {
       context_1.fillStyle = '#fe4f32'
       context_1.fill()
 
-      this.audio = new Audio(
-        'https://docs.google.com/uc?export=download&id=17diq43t5Rc8Z9ppvQG5d6PRFx9-KxemO'
-      )
-      this.audio.volume = 0.1
+      // this.audio = new Audio(
+      //   'https://docs.google.com/uc?export=download&id=17diq43t5Rc8Z9ppvQG5d6PRFx9-KxemO'
+      // )
+      // this.audio.volume = 0.1
       this.bounce_sound = new Audio(
         'https://docs.google.com/uc?export=download&id=1ULvJnA8QyCnyRfcDLla7TFdVo2Kufymc'
       )
@@ -290,7 +290,7 @@ export default {
     },
     soundToggle() {
       this.soundFlag = !this.soundFlag
-      this.audio.muted = !this.soundFlag
+      // this.audio.muted = !this.soundFlag
       this.goalSound.muted = !this.soundFlag
       this.bounce_sound.muted = !this.soundFlag
       this.audioElement.muted = !this.soundFlags
@@ -426,7 +426,7 @@ export default {
         console.log(this.winner)
         this.checkrestart = data.checkrestart
         this.print = data.print
-        this.audio.pause()
+        // this.audio.pause()
         this.goalSound.pause()
         this.bounce_sound.pause()
 
@@ -622,7 +622,6 @@ export default {
   justify-content: center;
   position: relative;
   top: 29%;
-  z-index: 999;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
