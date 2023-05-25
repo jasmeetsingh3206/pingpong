@@ -48,10 +48,14 @@
                 Join Room
               </button>
               <button
+              :disabled="haveCode!=''"
+              v-if="haveCode==''"
+
                 type="submit"
                 @click.prevent="maingame"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md ml- shadow-lg"
+                class="bg-slate-800 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md ml- shadow-lg"
               >
+                
                 Create Room
               </button>
             </div>
@@ -84,9 +88,12 @@ export default {
   },
   methods: {
     joinGame() {
-      this.myStoreStore.havecode = this.haveCode
+      this.haveCode=this.haveCode.trim()
 
-      if ((this.haveCode !==''||this.haveCode !==null) && this.haveCode.length == 6 && (this.myStoreStore.myName !== ''||this.myStoreStore.myName !==null)) {
+      this.myStoreStore.havecode = this.haveCode
+      console.log( this.myStoreStore.havecode)
+
+      if ((this.haveCode !==''||this.haveCode !==null) && this.haveCode.length == 6 && (this.myStoreStore.myName !== '' && this.myStoreStore.myName !==null)) {
         this.$router.replace('/game')
       } else {
         if ((this.haveCode ===''||this.haveCode ===null)&&(this.myStoreStore.myName === ''||this.myStoreStore.myName ===null)){
