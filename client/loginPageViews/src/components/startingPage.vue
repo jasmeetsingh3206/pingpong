@@ -50,7 +50,6 @@
               <button
               :disabled="haveCode!=''"
               v-if="haveCode==''"
-
                 type="submit"
                 @click.prevent="maingame"
                 class="bg-slate-800 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md ml- shadow-lg"
