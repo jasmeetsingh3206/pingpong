@@ -283,7 +283,7 @@ export default {
         }
       })
       document.addEventListener('keyup', () => {
-        this.pv=0;
+        this.pv=15;
       })
     }
   },
