@@ -138,7 +138,7 @@ io.on("connection", (socket) => {
     const client1Id = clients[0];
     const client2Id = clients[1];
     console.log(client1Id, client2Id + "we are the two clients");
-    socket.on("movePaddle", (data) => {console.time('time');
+    socket.on("movePaddle", (data) => {
       console.log(data.pv)
       if (numClients == 2) {
         let speed =data.pv;
@@ -183,7 +183,7 @@ io.on("connection", (socket) => {
               data.secondvalue - speed - count2;
           }
         }
-console.timeEnd('time');
+
         io.to(room).emit("message", {
           position: roomdata[room].greyX_1,
           secondpostion: roomdata[room].secondgreyX_1,
