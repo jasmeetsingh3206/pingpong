@@ -185,8 +185,8 @@ io.on("connection", (socket) => {
         }
 
         io.to(room).emit("message", {
-          position: roomdata[data.key].greyX_1,
-          secondpostion: roomdata[data.key].secondgreyX_1,
+          position: roomdata[room].greyX_1,
+          secondpostion: roomdata[room].secondgreyX_1,
         });
       }
     });
