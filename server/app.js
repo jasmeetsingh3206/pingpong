@@ -139,7 +139,7 @@ io.on("connection", (socket) => {
     const client2Id = clients[1];
     console.log(client1Id, client2Id + "we are the two clients");
     socket.on("movePaddle", (data) => {
-      console.log(data.pv)
+      
       if (numClients == 2) {
         let speed =data.pv;
         let count1 = 0;
@@ -151,7 +151,7 @@ io.on("connection", (socket) => {
           roomdata[room].direction = data.direction;
         
           if (client1Id === socket.id && roomdata[room].greyX_1 > 0) {
-            count1 = count1 + 7;
+            count1 = count1 + 1;
             count3 = 0;
 
             roomdata[room].greyX_1 = roomdata[room].greyX_1 - speed - count1;
@@ -159,7 +159,7 @@ io.on("connection", (socket) => {
             client2Id === socket.id &&
             roomdata[room].secondgreyX_1 < 420
           ) {
-            count2 = count2 + 7;
+            count2 = count2 + 1;
             count4 = 0;
             roomdata[room].secondgreyX_1 =
               roomdata[room].secondgreyX_1 + speed + count4;
@@ -171,13 +171,13 @@ io.on("connection", (socket) => {
           roomdata[room].direction = data.direction;
           if (client1Id === socket.id && roomdata[room].greyX_1 < 420) {
             count1 = 0;
-            count3 = count3 + 7
+            count3 = count3 + 1
             roomdata[room].greyX_1 = roomdata[room].greyX_1 + speed + count3;
           } else if (
             client2Id === socket.id &&
             roomdata[room].secondgreyX_1 > 0
           ) {
-            count4 = count4 + 7;
+            count4 = count4 + 1;
             count2 = 0;
             roomdata[room].secondgreyX_1 =
               roomdata[room].secondgreyX_1 - speed - count2;
