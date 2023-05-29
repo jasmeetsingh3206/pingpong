@@ -328,10 +328,7 @@ export default {
       e.target.style.opacity = '0'
       this.socket.emit('movePaddle', {
         direction: 'left',
-        value: this.greyX_1,
-        secondvalue: this.secondgreyX_1,
-        socketID: this.socketid,
-        key: this.code
+            pv:this.pv
       })
       // debugger
       setTimeout(() => {
@@ -340,12 +337,9 @@ export default {
     },
     buttonRight(e) {
       e.target.style.opacity = '0'
-      this.socket.emit('movePaddle', {
-        direction: 'right',
-        value: this.greyX_1,
-        secondvalue: this.secondgreyX_1,
-        socketID: this.socketid,
-        key: this.code
+      this.socket.emit('movePaddle', { direction: 'right',
+            pv:this.pv
+          
       })
       setTimeout(() => {
         e.target.style.opacity = '.8'
