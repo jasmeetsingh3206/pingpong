@@ -139,6 +139,7 @@ io.on("connection", (socket) => {
     const client2Id = clients[1];
     console.log(client1Id, client2Id + "we are the two clients");
     socket.on("movePaddle", (data) => {
+      
       if (numClients == 2) {
         let speed = 30;
         let count1 = 0;
@@ -146,40 +147,39 @@ io.on("connection", (socket) => {
         let count3 = 0;
         let count4 = 0;
         if (data.direction === "left") {
-          roomdata[data.key].socketid = data.socketID;
-          roomdata[data.key].direction = data.direction;
-          console.log(roomdata[data.key].direction);
-          console.log(roomdata[data.key].socketid);
-          if (client1Id === data.socketID && roomdata[data.key].greyX_1 > 0) {
+          roomdata[room].socketid = socket.id;
+          roomdata[room].direction = data.direction;
+        
+          if (client1Id === socket.id && roomdata[room].greyX_1 > 0) {
             count1 = count1 + 7;
             count3 = 0;
 
-            roomdata[data.key].greyX_1 = data.value - speed - count1;
+            roomdata[room].greyX_1 = data.value - speed - count1;
           } else if (
-            client2Id === data.socketID &&
-            roomdata[data.key].secondgreyX_1 < 420
+            client2Id === socket.id &&
+            roomdata[room].secondgreyX_1 < 420
           ) {
             count2 = count2 + 7;
             count4 = 0;
-            roomdata[data.key].secondgreyX_1 =
+            roomdata[room].secondgreyX_1 =
               data.secondvalue + speed + count4;
           }
         }
 
         if (data.direction === "right") {
-          roomdata[data.key].socketid = data.socketId;
-          roomdata[data.key].direction = data.direction;
-          if (client1Id === data.socketID && roomdata[data.key].greyX_1 < 420) {
+          roomdata[room].socketid = socket.id;
+          roomdata[room].direction = data.direction;
+          if (client1Id === socket.id && roomdata[room].greyX_1 < 420) {
             count1 = 0;
             count3 = count3 + 7
-            roomdata[data.key].greyX_1 = data.value + speed + count3;
+            roomdata[room].greyX_1 = data.value + speed + count3;
           } else if (
-            client2Id === data.socketID &&
-            roomdata[data.key].secondgreyX_1 > 0
+            client2Id === socket.id &&
+            roomdata[room].secondgreyX_1 > 0
           ) {
             count4 = count4 + 7;
             count2 = 0;
-            roomdata[data.key].secondgreyX_1 =
+            roomdata[room].secondgreyX_1 =
               data.secondvalue - speed - count2;
           }
         }

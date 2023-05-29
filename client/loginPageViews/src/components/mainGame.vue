@@ -267,16 +267,14 @@ export default {
             direction: 'left',
             value: this.greyX_1,
             secondvalue: this.secondgreyX_1,
-            socketID: this.socketid,
-            key: this.code
+            
           })
         } else if (event.code === 'ArrowRight') {
           this.socket.emit('movePaddle', {
             direction: 'right',
             value: this.greyX_1,
             secondvalue: this.secondgreyX_1,
-            socketID: this.socketid,
-            key: this.code
+          
           })
         }
       })
