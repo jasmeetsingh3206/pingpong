@@ -156,7 +156,8 @@ export default {
       audioBlob: null,
       audioElement: null,
       winner: '',
-      notifaction: false
+      notifaction:false,
+      pv:0
     }
   },
   computed: {
@@ -261,12 +262,14 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
+        if (this.pv < 30) this.pv = this.pv + 5;
         if (event.code === 'Space' && !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
             direction: 'left',
             value: this.greyX_1,
             secondvalue: this.secondgreyX_1,
+            pv:this.pv
             
           })
         } else if (event.code === 'ArrowRight') {
@@ -274,9 +277,13 @@ export default {
             direction: 'right',
             value: this.greyX_1,
             secondvalue: this.secondgreyX_1,
+            pv:this.pv
           
           })
         }
+      })
+      document.addEventListener('keyup', () => {
+        this.pv=0;
       })
     }
   },
