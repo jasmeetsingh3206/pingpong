@@ -262,7 +262,7 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-        if (this.pv < 30) this.pv = this.pv + 5;
+        if (this.pv < 20) this.pv = this.pv + 5;
         if (event.code === 'Space' && !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
@@ -279,7 +279,7 @@ export default {
         }
       })
       document.addEventListener('keyup', () => {
-        this.pv=15;
+        this.pv=7;
       })
     }
   },
