@@ -279,7 +279,7 @@ export default {
         }
       })
       document.addEventListener('keyup', () => {
-        this.pv=2;
+        this.pv=4;
       })
     }
   },
