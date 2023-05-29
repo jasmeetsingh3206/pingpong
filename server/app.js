@@ -154,7 +154,7 @@ io.on("connection", (socket) => {
             count1 = count1 + 7;
             count3 = 0;
 
-            roomdata[room].greyX_1 = data.value - speed - count1;
+            roomdata[room].greyX_1 = roomdata[room].greyX_1 - speed - count1;
           } else if (
             client2Id === socket.id &&
             roomdata[room].secondgreyX_1 < 420
@@ -162,7 +162,7 @@ io.on("connection", (socket) => {
             count2 = count2 + 7;
             count4 = 0;
             roomdata[room].secondgreyX_1 =
-              data.secondvalue + speed + count4;
+              roomdata[room].secondgreyX_1 + speed + count4;
           }
         }
 
@@ -172,7 +172,7 @@ io.on("connection", (socket) => {
           if (client1Id === socket.id && roomdata[room].greyX_1 < 420) {
             count1 = 0;
             count3 = count3 + 7
-            roomdata[room].greyX_1 = data.value + speed + count3;
+            roomdata[room].greyX_1 = roomdata[room].greyX_1 + speed + count3;
           } else if (
             client2Id === socket.id &&
             roomdata[room].secondgreyX_1 > 0
@@ -180,7 +180,7 @@ io.on("connection", (socket) => {
             count4 = count4 + 7;
             count2 = 0;
             roomdata[room].secondgreyX_1 =
-              data.secondvalue - speed - count2;
+              roomdata[room].secondgreyX_1 - speed - count2;
           }
         }
 
