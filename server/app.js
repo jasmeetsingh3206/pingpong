@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
     socket.on("movePaddle", (data) => {
       
       if (numClients == 2) {
-        let speed =15;
+        let speed =25;
         let count1 = 0;
         let count2 = 0;
         let count3 = 0;
