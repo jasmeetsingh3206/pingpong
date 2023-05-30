@@ -262,36 +262,15 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-         //if (this.pv < 20) this.pv = this.pv + 6;
-         this.pv=5;
         if (event.code === 'Space' && !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
-            direction: 'left',
-            pv:this.pv
-            
+            direction: 'left'
           })
         } else if (event.code === 'ArrowRight') {
           this.socket.emit('movePaddle', {
             direction: 'right',
             pv:this.pv
-          
-          })
-        }
-      })
-      document.addEventListener('keyup', () => {
-        this.pv=40;
-        if (event.code === 'ArrowLeft') {
-          this.socket.emit('movePaddle', {
-            direction: 'left',
-            pv:this.pv
-            
-          })
-        } else if (event.code === 'ArrowRight') {
-          this.socket.emit('movePaddle', {
-            direction: 'right',
-            pv:this.pv
-          
           })
         }
       })
