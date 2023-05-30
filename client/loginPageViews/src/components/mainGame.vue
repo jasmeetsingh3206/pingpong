@@ -359,7 +359,7 @@ export default {
         secondgreyX_1: this.secondgreyX_1,
         widthtemp_1: 500,
         heighttemp_1: 500,
-        key: this.Store.havecode,
+        key:  this.Store.havecode,
 
         countP1: this.countP1,
         countP2: this.countP2,
