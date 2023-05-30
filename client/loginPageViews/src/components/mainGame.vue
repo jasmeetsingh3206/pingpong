@@ -320,8 +320,7 @@ export default {
     buttonLeft(e) {
       e.target.style.opacity = '0'
       this.socket.emit('movePaddle', {
-        direction: 'left',
-            pv:this.pv
+        direction: 'left'
       })
       // debugger
       setTimeout(() => {
@@ -330,8 +329,7 @@ export default {
     },
     buttonRight(e) {
       e.target.style.opacity = '0'
-      this.socket.emit('movePaddle', { direction: 'right',
-            pv:this.pv
+      this.socket.emit('movePaddle', { direction: 'right'
           
       })
       setTimeout(() => {
