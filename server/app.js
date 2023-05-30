@@ -141,7 +141,7 @@ io.on("connection", (socket) => {
     socket.on("movePaddle", (data) => {
       
       if (numClients == 2) {
-        let speed =25;
+        let speed =30;
         let count1 = 0;
         let count2 = 0;
         let count3 = 0;
@@ -154,7 +154,7 @@ io.on("connection", (socket) => {
             count1 = count1 + 1;
             count3 = 0;
 
-            roomdata[room].greyX_1 = roomdata[room].greyX_1 - count1;
+            roomdata[room].greyX_1 = roomdata[room].greyX_1 - count1-speed;
           } else if (
             client2Id === socket.id &&
             roomdata[room].secondgreyX_1 < 420
