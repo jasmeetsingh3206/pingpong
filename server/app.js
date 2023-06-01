@@ -224,7 +224,7 @@ io.on("connection", (socket) => {
         if(data.socketID==client1Id){
           console.log("i am inside")
           stoppad1=false
-        }else{
+        }else if(data.socketID==client2Id){
           stoppad2=false
         }
 
@@ -481,7 +481,7 @@ io.on("connection", (socket) => {
               }
             
 
-             if(roomdata[data.key].direction=='left' && roomdata[data.key].socketid !=  client2Id ){
+             if(roomdata[data.key].direction=='left' && roomdata[data.key].socketid ==  client1Id ){
               check=true
             }else {check=false}
      
