@@ -1,4 +1,3 @@
-<!-- client side -->
 <template>
   <div class="bg-green-100 h-screen flex flex-col items-center justify-evenly">
     <div class="flex justify-center">
@@ -262,17 +261,29 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-        if (event.code === 'Space' && !this.showChat) this.socket.emit('space')
+        if (event.code === 'Space'&& !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
           this.socket.emit('movePaddle', {
-            direction: 'left'
+            direction: 'left',
+            value: this.greyX_1,
+            secondvalue: this.secondgreyX_1,
+            socketID: this.socketid,
+            key: this.code
           })
         } else if (event.code === 'ArrowRight') {
           this.socket.emit('movePaddle', {
             direction: 'right',
-            pv:this.pv
+            value: this.greyX_1,
+            secondvalue: this.secondgreyX_1,
+            socketID: this.socketid,
+            key: this.code
           })
         }
+      })
+      document.addEventListener('keyup', () => {
+        this.socket.emit('stopPaddel', {
+        socketId:this.socketid
+        })
       })
     }
   },
