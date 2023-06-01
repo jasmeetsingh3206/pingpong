@@ -125,11 +125,23 @@ io.on("connection", (socket) => {
       console.log("I am disconnected");
       
 
-     
+      // console.log("jhijdefjldsjfids");
+      // roomdata[room].x_1 = 250;
+
+      // roomdata[room].y_1 = 440;
+      // roomdata[room].dx_1 = 4;
+      // roomdata[room].dy_1 = -4;
+
+      // roomdata[room].countP1 = 0;
+      // roomdata[room].countP2 = 0;
+      // roomdata[room].secondgreyX_1 = 210;
+      // roomdata[room].greyX_1 = 210;
+      // roomdata[room].checkrestart = false;
+      // roomdata[room].print = false;
 
       io.to(room).emit("disco");
 
-      
+      // roomdata[room].gamestop = true;
     });
 
     const rooms = io.sockets.adapter.rooms.get(data.room);
@@ -163,19 +175,50 @@ io.on("connection", (socket) => {
       console.log(data.key);
       socket.on("movePaddle", (data) => {
        
-      
+        // let speed = 10;
+        // let count1 = 0;
+        // let count2 = 0;
+        // let count3 = 0;
+        // let count4 = 0;
         if (data.direction === "left") {
           roomdata[data.key].socketid = data.socketID;
           roomdata[data.key].direction = data.direction;
           console.log( roomdata[data.key].socketid+"left")
-       
+        //   console.log(roomdata[data.key].direction);
+        //   console.log(roomdata[data.key].socketid);
+        //   if (client1Id === data.socketID && roomdata[data.key].greyX_1 > 0) {
+        //     count1 = count1 + 7;
+        //     count3 = 0;
+
+        //     roomdata[data.key].greyX_1 = data.value - speed - count1;
+        //   } else if (
+        //     client2Id === data.socketID &&
+        //     roomdata[data.key].secondgreyX_1 < 420
+        //   ) {
+        //     count2 = count2 + 7;
+        //     count4 = 0;
+        //     roomdata[data.key].secondgreyX_1 =
+        //       data.secondvalue + speed + count4;
+        //   }
         }
 
         if (data.direction === "right") {
           roomdata[data.key].socketid = data.socketID;
           console.log( roomdata[data.key].socketid +"right")
           roomdata[data.key].direction = data.direction;
-        
+          // if (client1Id === data.socketID && roomdata[data.key].greyX_1 < 420) {
+          //   count1 = 0;
+          //   count3 = count3 + 7;
+          //   roomdata[data.key].greyX_1 = data.value + speed + count3;
+          // } else if (
+          //   client2Id === data.socketID &&
+          //   roomdata[data.key].secondgreyX_1 > 0
+          // ) {
+          //   count4 = count4 + 7;
+          //   count2 = 0;
+          //   roomdata[data.key].secondgreyX_1 =
+          //     data.secondvalue - speed - count2;
+          // }
         }
 
         if(data.socketID==client1Id){
@@ -189,7 +232,11 @@ io.on("connection", (socket) => {
 
         console.log(stoppad1+ "i am stoppad1" +"upper loop")
 
-       
+        // io.to(room).emit("message", {
+        //   position: roomdata[data.key].greyX_1,
+        //   secondpostion: roomdata[data.key].secondgreyX_1,
+        // });
+      
     });
 
     socket.on('stopPaddel',(data)=> {
