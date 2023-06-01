@@ -384,6 +384,12 @@ this.socket.emit('stopPaddel',{
         this.Store.opponentEmoji = data.SelectedEmoji
       })
 
+      this.socket.on('disco',()=>{
+        this.Store.msg=true
+        this.$router.replace('/')
+        
+      })
+
       this.socket.on('room-created', (data) => {
         this.code = data.roomId
       })
@@ -410,7 +416,9 @@ this.socket.emit('stopPaddel',{
             (this.goals_1 = data.goals_1),
             (this.gameover = data.gameover),
             (this.check1_1 = data.check1_1),
-            (this.check_1 = data.check_1)
+            (this.check_1 = data.check_1),
+            this.greyX_1=data.position
+          this.secondgreyX_1=data.secondpostion
 
         this.canvasupdate()
       })
