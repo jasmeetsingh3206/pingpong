@@ -522,7 +522,7 @@ io.on("connection", (socket) => {
             });
          
           }
-        }, 15);
+        }, 20);
       }
       socket.on("replay", () => {
       
