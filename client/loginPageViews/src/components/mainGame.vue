@@ -332,7 +332,11 @@ this.socket.emit('stopPaddel',{
     buttonLeft(e) {
       e.target.style.opacity = '0'
       this.socket.emit('movePaddle', {
-        direction: 'left'
+        direction: 'left',
+        value: this.greyX_1,
+        secondvalue: this.secondgreyX_1,
+        socketID: this.socketid,
+        key: this.code
       })
       // debugger
       setTimeout(() => {
@@ -341,8 +345,12 @@ this.socket.emit('stopPaddel',{
     },
     buttonRight(e) {
       e.target.style.opacity = '0'
-      this.socket.emit('movePaddle', { direction: 'right'
-          
+      this.socket.emit('movePaddle', {
+        direction: 'right',
+        value: this.greyX_1,
+        secondvalue: this.secondgreyX_1,
+        socketID: this.socketid,
+        key: this.code
       })
       setTimeout(() => {
         e.target.style.opacity = '.8'
