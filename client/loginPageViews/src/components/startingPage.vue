@@ -7,18 +7,23 @@
       <div class="mt-2 md:mt-0">
         <form class="flex items-center justify-center space-x-4 flex-wrap mr-4 flex-col">
           <label for="room-name" class="sr-only">Room Name:</label>
+          <span v-if="myStoreStore.msg==true"   class=" mb-3 font-extrabold text-red-600" >{{ restartMessage() }}</span>
           <div>
             <div
               class="flex mt-2 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
               v-if="this.invalid"
               role="alert"
             >
+
               <span class="sr-only">Info</span>
               <div>
                 <span v-if="this.invalid === 1" class="font-medium">Invalid Room Id and Name</span>
                 <span v-if="this.invalid === 2" class="font-medium">Invalid Name</span>
                 <span v-if="this.invalid === 3" class="font-medium">Invalid Room Id</span>
+               
+               
               </div>
+            
             </div>
             <div class="flex justify-items-center">
               <input
@@ -50,6 +55,7 @@
               <button
               :disabled="haveCode!=''"
               v-if="haveCode==''"
+
                 type="submit"
                 @click.prevent="maingame"
                 class="bg-slate-800 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md ml- shadow-lg"
@@ -81,6 +87,7 @@ export default {
   },
   mounted() {
     this.animateBackground()
+  
   },
   computed: {
     ...mapStores(useMyStore)
