@@ -427,36 +427,36 @@ io.on("connection", (socket) => {
                           console.log("why i am not running or i am not able to show my effect")
                   roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
                  
-              }else if(stoppad1==false){
+              }else{
                 check1=true
               }
               
               if(check1==true && roomdata[data.key].greyX_1>0 && stoppad1==false ){
                 if( roomdata[data.key].socketid ==  client1Id){
-                console.log("why i am not running or i am not able to show my effect")
+              
                 roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-4
               }
           
-              }else if(stoppad1==false){
+              }else {
                 check1=false
               }
             
 
              if(roomdata[data.key].direction=='left' && roomdata[data.key].socketid !=  client2Id ){
               check1=true
-            }else if(stoppad1==false &&  roomdata[data.key].socketid !=  client2Id) {check1=false}
+            }else if( roomdata[data.key].socketid !=  client2Id) {check1=false}
      
   
               
              if( roomdata[data.key].secondgreyX_1 < 420 && check2==false && stoppad2==false){
               roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1+4
-          }else if(stoppad2==false){
+          }else {
             check2=true
           }
           if(check2==true &&  roomdata[data.key].secondgreyX_1 > 0 && stoppad2==false){
             roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1-4
    
-          }else if(stoppad2==false){
+          }else{
             check2=false
           }
           if(roomdata[data.key].direction=='left' &&  roomdata[data.key].socketid == client2Id ){
