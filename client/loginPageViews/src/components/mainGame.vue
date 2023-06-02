@@ -282,10 +282,11 @@ export default {
         }
       })
       document.addEventListener('keyup', () => {
-this.socket.emit('stopPaddel',{
-  socketId:this.socketid
-})
-      })
+        this.socket.emit('stopPaddel',{
+          socketId:this.socketid
+        })
+              })
+    
     }
   },
   methods: {
