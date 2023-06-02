@@ -428,6 +428,7 @@ io.on("connection", (socket) => {
                   roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
                  
               }else{
+                if(roomdata[data.key].socketid !=  client2Id)
                 check1=true
               }
               
@@ -438,6 +439,7 @@ io.on("connection", (socket) => {
               }
           
               }else {
+                if(roomdata[data.key].socketid !=  client2Id)
                 check1=false
               }
             
@@ -450,8 +452,11 @@ io.on("connection", (socket) => {
               
              if( roomdata[data.key].secondgreyX_1 < 420 && check2==false && stoppad2==false){
               if(roomdata[data.key].socketid ==  client2Id)
+              console.log("are you running")
               roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1+4
           }else {
+            console.log("are you running 2")
+            if(roomdata[data.key].socketid ==  client2Id)
             check2=true
           }
           if(check2==true &&  roomdata[data.key].secondgreyX_1 > 0 && stoppad2==false){
@@ -459,6 +464,7 @@ io.on("connection", (socket) => {
             roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1-4
    
           }else{
+            if(roomdata[data.key].socketid ==  client2Id)
             check2=false
           }
           if(roomdata[data.key].direction=='left' &&  roomdata[data.key].socketid == client2Id ){
