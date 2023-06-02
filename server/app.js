@@ -423,7 +423,7 @@ io.on("connection", (socket) => {
                   roomdata[data.key].y_1 - roomdata[data.key].dy_1;
                   console.log(stoppad1+ "i am stoppad1 downer loop")
                         if(roomdata[data.key].greyX_1 < 420 && check1==false && stoppad1==false){
-                          if( roomdata[data.key].socketid ==  client1Id){
+                          if( roomdata[data.key].socketid !=  client2Id){
                           console.log("why i am not running or i am not able to show my effect")
                   roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
                  
@@ -432,7 +432,7 @@ io.on("connection", (socket) => {
               }
               
               if(check1==true && roomdata[data.key].greyX_1>0 && stoppad1==false ){
-                if( roomdata[data.key].socketid ==  client1Id){
+                if( roomdata[data.key].socketid !=  client2Id){
               
                 roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-4
               }
