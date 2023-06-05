@@ -79,6 +79,10 @@ io.on("connection", (socket) => {
         pause: true,
         Message: "",
         gamestop: false,
+        directionclient1:'no',
+
+        directionclient2:'no'
+
       };
     }
     
@@ -174,6 +178,7 @@ io.on("connection", (socket) => {
         if (data.direction === "left") {
           roomdata[room].socketid = socket.id;
           roomdata[room].direction = data.direction
+         
           
        
         }
@@ -184,10 +189,11 @@ io.on("connection", (socket) => {
         }
 
         if(socket.id==client1Id){
-          
+          roomdata[room].direction1 = data.direction
           stoppad1=false
         }else{
           stoppad2=false
+          roomdata[room].direction2 = data.direction
         }
   
     });
@@ -195,11 +201,14 @@ io.on("connection", (socket) => {
     socket.on('stopPaddel',(data)=> {
      
       if(socket.id==client1Id){
-        
+        roomdata[room].direction1='no'
         stoppad1=true
       }else{
         stoppad2=true
+        roomdata[room].direction2='no'
+      
       }    
+      roomdata[room].direction='no'
     })
       if (numClients == 2) {
         io.to(room).emit("playernames", {
@@ -274,53 +283,53 @@ io.on("connection", (socket) => {
                     if (roomdata[data.key].socketid == client1Id) {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 -
-                          1 -
+                          roomdata[data.key].dx_1 +
+                          1 +
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       } else if (roomdata[data.key].dx_1 < 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 -
-                          1 -
+                          roomdata[data.key].dx_1 +
+                          1 +
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
                     } else if (roomdata[data.key].socketid == client2Id) {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 -
-                          1 -
+                          roomdata[data.key].dx_1 +
+                          1 +
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       } else if (roomdata[data.key].dx_1 < 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 -
-                          1 -
+                          roomdata[data.key].dx_1 +
+                          1 +
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
                     }
                   }
 
                   if (roomdata[data.key].direction == "right") {
-                    if (roomdata[data.key].socketid == client1Id) {
+                    if (roomdata[data.key].socketid == client1Id && roomdata[data.key].direction1 !='no') {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 +
-                          1 +
+                          roomdata[data.key].dx_1 -
+                          1 -
                           Math.cos(roomdata[data.key].angle_of_incidence);
-                      } else if (roomdata[data.key].dx_1 < 0) {
+                      } else if (roomdata[data.key].dx_1 < 0 && roomdata[data.key].direction1 !='no') {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 +
-                          1 +
+                          roomdata[data.key].dx_1 -
+                          1 -
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
-                    } else if (roomdata[data.key].socketid == client2Id) {
+                    } else if (roomdata[data.key].socketid == client2Id  && roomdata[data.key].direction2 !='no') {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 +
-                          1 +
+                          roomdata[data.key].dx_1 -
+                          1 -
                           Math.cos(roomdata[data.key].angle_of_incidence);
-                      } else if (roomdata[data.key].dx_1 < 0) {
+                      } else if (roomdata[data.key].dx_1 < 0  && roomdata[data.key].direction2 !='no') {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 +
-                          1 +
+                          roomdata[data.key].dx_1 -
+                          1 -
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
                     }
