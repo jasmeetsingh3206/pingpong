@@ -21,15 +21,16 @@ const io = socketio(server);
 const roomdata = {};
 let numClients = 0;
 let key = "";
-let stoppad2 = true;
-let stoppad1 = true;
-let check1 = false;
-let check2 = false;
+let stoppad2=true
+let stoppad1=true
+let check1=false;
+let check2=false;
 const myArray = [];
 io.on("connection", (socket) => {
   emitter.setMaxListeners(20);
   let check = false;
-
+  
+ 
   console.log("A user connected");
   console.log(io.engine.clientsCount);
 
@@ -43,6 +44,7 @@ io.on("connection", (socket) => {
           room = data.havecode;
           key = room;
           check = true;
+          
         }
       });
     }
@@ -79,7 +81,7 @@ io.on("connection", (socket) => {
         gamestop: false,
       };
     }
-
+    
     data.room = room;
 
     socket.emit("info", {
@@ -122,6 +124,7 @@ io.on("connection", (socket) => {
     });
     socket.on("disconnect", () => {
       console.log("I am disconnected");
+      
 
       // console.log("jhijdefjldsjfids");
       // roomdata[room].x_1 = 250;
@@ -153,7 +156,7 @@ io.on("connection", (socket) => {
         }
       }
     }
-
+  
     io.to(data.room).emit("clientcount", {
       clientcount: numClients,
     });
@@ -164,46 +167,40 @@ io.on("connection", (socket) => {
     console.log(client1Id, client2Id + "we are the two clients");
 
     socket.on("life", (data) => {
+      
       console.log(data.key);
       socket.on("movePaddle", (data) => {
+       
         if (data.direction === "left") {
           roomdata[room].socketid = socket.id;
-          roomdata[room].direction = data.direction;
+          roomdata[room].direction = data.direction
+          
+       
         }
 
         if (data.direction === "right") {
           roomdata[room].socketid = socket.id;
-          roomdata[room].direction = data.direction;
+          roomdata[room].direction = data.direction
         }
 
-       
-          stoppad1 = false;
-      
-      });
-      socket.on("movePaddle2", (data) => {
-        if (data.direction === "left") {
-          roomdata[room].socketid = socket.id;
-          roomdata[room].direction = data.direction;
+        if(socket.id==client1Id){
+          
+          stoppad1=false
+        }else{
+          stoppad2=false
         }
+  
+    });
 
-        if (data.direction === "right") {
-          roomdata[room].socketid = socket.id;
-          roomdata[room].direction = data.direction;
-        }
-
-       
-          stoppad2 = false;
+    socket.on('stopPaddel',(data)=> {
+     
+      if(socket.id==client1Id){
         
-      });
-
-
-      socket.on("stopPaddel", (data) => {
-        if (socket.id == client1Id) {
-          stoppad1 = true;
-        } else {
-          stoppad2 = true;
-        }
-      });
+        stoppad1=true
+      }else{
+        stoppad2=true
+      }    
+    })
       if (numClients == 2) {
         io.to(room).emit("playernames", {
           player1name: roomdata[data.key].player1name,
@@ -223,9 +220,17 @@ io.on("connection", (socket) => {
         roomdata[data.key].check_1 = data.check_1;
         roomdata[data.key].countP1 = data.countP1;
         roomdata[data.key].countP2 = data.countP2;
+       
+
+      
+    
+
+
+
+
 
         setInterval(() => {
-          if (roomdata[data.key].pause) {
+          if (roomdata[data.key].pause ) {
             if (roomdata[data.key].check1_1 == false) {
               if (
                 (roomdata[data.key].y_1 == 440 ||
@@ -323,6 +328,7 @@ io.on("connection", (socket) => {
 
                   roomdata[data.key].x_1 =
                     roomdata[data.key].x_1 + roomdata[data.key].dx_1;
+                   
                 }
               } else {
                 if (
@@ -394,76 +400,64 @@ io.on("connection", (socket) => {
                   } else {
                     roomdata[data.key].goals_1 = roomdata[data.key].goals_1 - 1;
                     roomdata[data.key].dy_1 = -roomdata[data.key].dy_1;
+                   
                   }
                 }
                 roomdata[data.key].x_1 =
                   roomdata[data.key].x_1 + roomdata[data.key].dx_1;
                 roomdata[data.key].y_1 =
                   roomdata[data.key].y_1 - roomdata[data.key].dy_1;
+                  
+                        if(roomdata[data.key].greyX_1 < 420 && check1==false && stoppad1==false){
+                          if( roomdata[data.key].socketid !=  client2Id){
+                          
+                  roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
+                 
+              }else{
+                if(roomdata[data.key].socketid !=  client2Id)
+                check1=true
+              }
+              
+              if(check1==true && roomdata[data.key].greyX_1>0 && stoppad1==false ){
+                if( roomdata[data.key].socketid !=  client2Id){
+              
+                roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-4
+              }
+          
+              }else {
+                if(roomdata[data.key].socketid !=  client2Id)
+                check1=false
+              }
+            
 
-                if (
-                  roomdata[data.key].greyX_1 < 420 &&
-                  check1 == false &&
-                  stoppad1 == false
-                ) {
-                  if (roomdata[data.key].socketid != client2Id) {
-                    roomdata[data.key].greyX_1 = roomdata[data.key].greyX_1 + 4;
-                  }
-                } else {
-                  if (roomdata[data.key].socketid != client2Id) check1 = true;
-                }
+             if(roomdata[data.key].direction=='left' && roomdata[data.key].socketid !=  client2Id ){
+              check1=true
+            }else if( roomdata[data.key].socketid !=  client2Id) {check1=false}
+     
+  
+              
+             if( roomdata[data.key].secondgreyX_1 < 420 && check2==false && stoppad2==false){
+              if(roomdata[data.key].socketid ==  client2Id)
+              
+              roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1+4
+          }else {
+            
+            if(roomdata[data.key].socketid ==  client2Id)
+            check2=true
+          }
+          if(check2==true &&  roomdata[data.key].secondgreyX_1 > 0 && stoppad2==false){
+            if(roomdata[data.key].socketid ==  client2Id)
+            roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1-4
+   
+          }else{
+            if(roomdata[data.key].socketid ==  client2Id)
+            check2=false
+          }
+          if(roomdata[data.key].direction=='left' &&  roomdata[data.key].socketid == client2Id ){
+            check2=false
+          }else if(roomdata[data.key].socketid == client2Id) {check2=true}
+      
 
-                if (
-                  check1 == true &&
-                  roomdata[data.key].greyX_1 > 0 &&
-                  stoppad1 == false
-                ) {
-                  if (roomdata[data.key].socketid != client2Id) {
-                    roomdata[data.key].greyX_1 = roomdata[data.key].greyX_1 - 4;
-                  }
-                } else {
-                  if (roomdata[data.key].socketid != client2Id) check1 = false;
-                }
-
-                if (
-                  roomdata[data.key].direction == "left" &&
-                  roomdata[data.key].socketid != client2Id
-                ) {
-                  check1 = true;
-                } else if (roomdata[data.key].socketid != client2Id) {
-                  check1 = false;
-                }
-
-                if (
-                  roomdata[data.key].secondgreyX_1 < 420 &&
-                  check2 == false &&
-                  stoppad2 == false
-                ) {
-                  if (roomdata[data.key].socketid == client2Id)
-                    roomdata[data.key].secondgreyX_1 =
-                      roomdata[data.key].secondgreyX_1 + 4;
-                } else {
-                  if (roomdata[data.key].socketid == client2Id) check2 = true;
-                }
-                if (
-                  check2 == true &&
-                  roomdata[data.key].secondgreyX_1 > 0 &&
-                  stoppad2 == false
-                ) {
-                  if (roomdata[data.key].socketid == client2Id)
-                    roomdata[data.key].secondgreyX_1 =
-                      roomdata[data.key].secondgreyX_1 - 4;
-                } else {
-                  if (roomdata[data.key].socketid == client2Id) check2 = false;
-                }
-                if (
-                  roomdata[data.key].direction == "left" &&
-                  roomdata[data.key].socketid == client2Id
-                ) {
-                  check2 = false;
-                } else if (roomdata[data.key].socketid == client2Id) {
-                  check2 = true;
-                }
               }
             }
 
@@ -479,11 +473,14 @@ io.on("connection", (socket) => {
               check1_1: roomdata[data.key].check1_1,
               position: roomdata[data.key].greyX_1,
               secondpostion: roomdata[data.key].secondgreyX_1,
+
             });
+         
           }
         }, 15);
       }
       socket.on("replay", () => {
+      
         roomdata[room].x_1 = 250;
 
         roomdata[room].y_1 = 440;
