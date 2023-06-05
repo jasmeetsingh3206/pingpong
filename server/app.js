@@ -21,7 +21,8 @@ const io = socketio(server, {
 });
 
 instrument(io, {
-  auth: false
+  auth: false,
+  mode: "development",
 });
 
 app.use(cors());
