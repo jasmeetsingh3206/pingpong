@@ -123,9 +123,9 @@ export default {
       widthtemp_1: 500,
       heighttemp_1: 500,
       x_1: 250,
-      dx_1: 4,
+      dx_1: 2,
       y_1: 440,
-      dy_1: 4,
+      dy_1: 2,
       radius_1: 10,
       greyX_1: 210,
       greyY_1: 450,
@@ -262,25 +262,35 @@ export default {
         }
       })
       document.addEventListener('keydown', (event) => {
-        // if (this.pv < 20) this.pv = this.pv + 6;
-        if (event.code === 'Space' && !this.showChat) this.socket.emit('space')
+        if (event.code === 'Space'&& !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
+          if(this.Store.havecode === '5iztui'){
           this.socket.emit('movePaddle', {
             direction: 'left',
-            pv:this.pv
-            
-          })
-        } else if (event.code === 'ArrowRight') {
-          this.socket.emit('movePaddle', {
-            direction: 'right',
-            pv:this.pv
           
           })
+        }else{
+          this.socket.emit('movePaddle2',{
+            direction: 'left',
+          })
+        }
+        } else if (event.code === 'ArrowRight') {
+          if(this.Store.havecode=== '5iztui'){
+          this.socket.emit('movePaddle', {
+            direction: 'right',
+          })
+        }else{
+          this.socket.emit('movePaddle2',{
+            direction: 'right',
+          })
+        }
         }
       })
       document.addEventListener('keyup', () => {
-        this.pv=4;
-      })
+        this.socket.emit('stopPaddel',{
+        })
+              })
+    
     }
   },
   methods: {
@@ -328,7 +338,8 @@ export default {
       e.target.style.opacity = '0'
       this.socket.emit('movePaddle', {
         direction: 'left',
-            pv:this.pv
+        value: this.greyX_1,
+        secondvalue: this.secondgreyX_1,
       })
       // debugger
       setTimeout(() => {
@@ -337,9 +348,10 @@ export default {
     },
     buttonRight(e) {
       e.target.style.opacity = '0'
-      this.socket.emit('movePaddle', { direction: 'right',
-            pv:this.pv
-          
+      this.socket.emit('movePaddle', {
+        direction: 'right',
+        value: this.greyX_1,
+        secondvalue: this.secondgreyX_1,
       })
       setTimeout(() => {
         e.target.style.opacity = '.8'
@@ -368,7 +380,7 @@ export default {
         secondgreyX_1: this.secondgreyX_1,
         widthtemp_1: 500,
         heighttemp_1: 500,
-        key: this.Store.havecode,
+        key:  this.Store.havecode,
 
         countP1: this.countP1,
         countP2: this.countP2,
@@ -379,6 +391,12 @@ export default {
 
       this.socket.on('emojies', (data) => {
         this.Store.opponentEmoji = data.SelectedEmoji
+      })
+
+      this.socket.on('disco',()=>{
+        this.Store.msg=true
+        this.$router.replace('/')
+        
       })
 
       this.socket.on('room-created', (data) => {
@@ -407,7 +425,9 @@ export default {
             (this.goals_1 = data.goals_1),
             (this.gameover = data.gameover),
             (this.check1_1 = data.check1_1),
-            (this.check_1 = data.check_1)
+            (this.check_1 = data.check_1),
+            this.greyX_1=data.position
+          this.secondgreyX_1=data.secondpostion
 
         this.canvasupdate()
       })

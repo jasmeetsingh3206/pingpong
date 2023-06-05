@@ -16,7 +16,8 @@ export const useMyStore = defineStore('myStore', {
     messages: [
     
     ],
-    inputMessage:""
+    inputMessage:"",
+    msg:false
   }),
   actions: {
     setVariable(value1,value2) {
