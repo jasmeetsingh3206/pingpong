@@ -267,15 +267,21 @@ export default {
           this.socket.emit('movePaddle', {
             direction: 'left',
           
+            socketID: this.socketid,
+            key: this.code
           })
         } else if (event.code === 'ArrowRight') {
           this.socket.emit('movePaddle', {
             direction: 'right',
+          
+            socketID: this.socketid,
+            key: this.code
           })
         }
       })
       document.addEventListener('keyup', () => {
         this.socket.emit('stopPaddel',{
+          socketId:this.socketid
         })
               })
     
@@ -328,6 +334,8 @@ export default {
         direction: 'left',
         value: this.greyX_1,
         secondvalue: this.secondgreyX_1,
+        socketID: this.socketid,
+        key: this.code
       })
       // debugger
       setTimeout(() => {
@@ -340,6 +348,8 @@ export default {
         direction: 'right',
         value: this.greyX_1,
         secondvalue: this.secondgreyX_1,
+        socketID: this.socketid,
+        key: this.code
       })
       setTimeout(() => {
         e.target.style.opacity = '.8'
