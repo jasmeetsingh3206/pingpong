@@ -1,12 +1,13 @@
 {
   "dependencies": {
+    "@socket.io/admin-ui": "^0.5.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
     "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
     "speaker": "^0.5.4",
-    "web-audio-api": "^0.2.2",
-    "socket.io-client": "^4.6.1"
+    "web-audio-api": "^0.2.2"
   },
   "scripts": {
     "start": "nodemon app.js"

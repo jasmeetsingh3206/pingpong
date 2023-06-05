@@ -5,18 +5,31 @@ const cors = require("cors");
 const app = express();
 const EventEmitter = require("events");
 const { disconnect } = require("process");
+const { instrument } = require("@socket.io/admin-ui");
 
 const emitter = new EventEmitter();
+const server = app.listen(3003, () => {
+  console.log("Server listening on port 3000");
+});
+
+
+const io = socketio(server, {
+  cors: {
+    origin: ["https://admin.socket.io"],
+    credentials: true
+  }
+});
+
+instrument(io, {
+  auth: false
+});
 
 app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello,World");
 });
-const server = app.listen(3003, () => {
-  console.log("Server listening on port 3000");
-});
 
-const io = socketio(server);
+
 
 const roomdata = {};
 let numClients = 0;
