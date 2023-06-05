@@ -176,11 +176,9 @@ io.on("connection", (socket) => {
           roomdata[room].direction = data.direction;
         }
 
-        if (socket.id == client1Id) {
+       
           stoppad1 = false;
-        } else {
-          stoppad2 = false;
-        }
+      
       });
       socket.on("movePaddle2", (data) => {
         if (data.direction === "left") {
@@ -193,11 +191,9 @@ io.on("connection", (socket) => {
           roomdata[room].direction = data.direction;
         }
 
-        if (socket.id == client1Id) {
-          stoppad1 = false;
-        } else {
+       
           stoppad2 = false;
-        }
+        
       });
 
 

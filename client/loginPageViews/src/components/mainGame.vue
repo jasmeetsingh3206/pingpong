@@ -276,7 +276,7 @@ export default {
         }
         } else if (event.code === 'ArrowRight') {
           if(this.Store.havecode=== '5iztui'){
-          this.socket.emit('movePaddle', {
+          this.socket.emit('movePaddle1', {
             direction: 'right',
           })
         }else{
