@@ -411,7 +411,12 @@ io.on("connection", (socket) => {
                         if(roomdata[data.key].greyX_1 < 420 && check1==false && stoppad1==false){
                           if( roomdata[data.key].socketid !=  client2Id){
                           
-                  roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
+                            if(stoppad2==false){
+                              roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+6
+                              }else{
+                                roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
+                              }
+                
                  
               }else{
                 if(roomdata[data.key].socketid !=  client2Id)
@@ -420,8 +425,10 @@ io.on("connection", (socket) => {
               
               if(check1==true && roomdata[data.key].greyX_1>0 && stoppad1==false ){
                 if( roomdata[data.key].socketid !=  client2Id){
-              
-                roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-4
+              if(stoppad2==false){
+              roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-6
+              }else{
+                roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-4}
               }
           
               }else {
