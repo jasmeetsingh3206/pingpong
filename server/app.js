@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
           room = data.havecode;
           key = room;
           check = true;
-          console.log(data.havecode + "ok i understood");
+          
         }
       });
     }
@@ -81,8 +81,7 @@ io.on("connection", (socket) => {
         gamestop: false,
       };
     }
-    console.log(myArray);
-    console.log(roomdata);
+    
     data.room = room;
 
     socket.emit("info", {
@@ -157,7 +156,7 @@ io.on("connection", (socket) => {
         }
       }
     }
-    console.log(myArray);
+  
     io.to(data.room).emit("clientcount", {
       clientcount: numClients,
     });
@@ -173,49 +172,36 @@ io.on("connection", (socket) => {
       socket.on("movePaddle", (data) => {
        
         if (data.direction === "left") {
-          roomdata[data.key].socketid = data.socketID;
-          roomdata[data.key].direction = data.direction;
-          console.log( roomdata[data.key].socketid+"left")
+          roomdata[room].socketid = socket.id;
+          roomdata[room].direction = data.direction
+          
        
         }
 
         if (data.direction === "right") {
-          roomdata[data.key].socketid = data.socketID;
-          console.log( roomdata[data.key].socketid +"right")
-          roomdata[data.key].direction = data.direction;
-         
+          roomdata[room].socketid = socket.id;
+          roomdata[room].direction = data.direction
         }
 
-        if(data.socketID==client1Id){
-          console.log("i am inside")
+        if(socket.id==client1Id){
+          
           stoppad1=false
         }else{
           stoppad2=false
         }
-
-
-
-        console.log(stoppad1+ "i am stoppad1" +"upper loop")
-
-        
-      
+  
     });
 
     socket.on('stopPaddel',(data)=> {
-     console.log("i am stop")
-     console.log(data.socketId + "==" + client1Id)
-      if(data.socketId==client1Id){
-        console.log("i will also run")
+     
+      if(socket.id==client1Id){
+        
         stoppad1=true
       }else{
         stoppad2=true
       }    
-      console.log(stoppad1+ "i am stoppad1")
-
     })
-    console.log("hello")
       if (numClients == 2) {
-        console.log("i am stoped");
         io.to(room).emit("playernames", {
           player1name: roomdata[data.key].player1name,
           player2name: roomdata[data.key].player2name,
@@ -421,10 +407,10 @@ io.on("connection", (socket) => {
                   roomdata[data.key].x_1 + roomdata[data.key].dx_1;
                 roomdata[data.key].y_1 =
                   roomdata[data.key].y_1 - roomdata[data.key].dy_1;
-                  console.log(stoppad1+ "i am stoppad1 downer loop")
+                  
                         if(roomdata[data.key].greyX_1 < 420 && check1==false && stoppad1==false){
                           if( roomdata[data.key].socketid !=  client2Id){
-                          console.log("why i am not running or i am not able to show my effect")
+                          
                   roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
                  
               }else{
@@ -452,10 +438,10 @@ io.on("connection", (socket) => {
               
              if( roomdata[data.key].secondgreyX_1 < 420 && check2==false && stoppad2==false){
               if(roomdata[data.key].socketid ==  client2Id)
-              console.log("are you running")
+              
               roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1+4
           }else {
-            console.log("are you running 2")
+            
             if(roomdata[data.key].socketid ==  client2Id)
             check2=true
           }
