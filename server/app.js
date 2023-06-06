@@ -127,7 +127,7 @@ io.on("connection", (socket) => {
       });
     });
     socket.on("disconnect", () => {
-      console.log("I am disconnected");
+   
       
 
       // console.log("jhijdefjldsjfids");
@@ -168,11 +168,10 @@ io.on("connection", (socket) => {
     const clients = Array.from(rooms);
     const client1Id = clients[0];
     const client2Id = clients[1];
-    console.log(client1Id, client2Id + "we are the two clients");
+  
 
     socket.on("life", (data) => {
       
-      console.log(data.key);
       socket.on("movePaddle", (data) => {
        
         if (data.direction === "left") {
@@ -416,13 +415,15 @@ io.on("connection", (socket) => {
                   roomdata[data.key].x_1 + roomdata[data.key].dx_1;
                 roomdata[data.key].y_1 =
                   roomdata[data.key].y_1 - roomdata[data.key].dy_1;
-                  
+                  debugger
                         if(roomdata[data.key].greyX_1 < 420 && check1==false && stoppad1==false){
                           if( roomdata[data.key].socketid !=  client2Id){
                           
                             if(stoppad2==false){
+                              console.log("i have a movment paddel 1 1")
                               roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+6
                               }else{
+                                console.log("i have a movment paddel 1 1")
                                 roomdata[data.key].greyX_1= roomdata[data.key].greyX_1+4}
                               }
                 
@@ -435,8 +436,10 @@ io.on("connection", (socket) => {
               if(check1==true && roomdata[data.key].greyX_1>0 && stoppad1==false ){
                 if( roomdata[data.key].socketid !=  client2Id){
               if(stoppad2==false){
+                console.log("i have a movment paddel 1 2")
               roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-6
               }else{
+                console.log("i have a movment paddel 1 2")
                 roomdata[data.key].greyX_1= roomdata[data.key].greyX_1-4}
               }
           
@@ -454,25 +457,32 @@ io.on("connection", (socket) => {
               
              if( roomdata[data.key].secondgreyX_1 < 420 && check2==false && stoppad2==false){
               if(roomdata[data.key].socketid ==  client2Id)
-              
+              console.log("i have a movment paddel 2 1")
               roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1+4
           }else {
             
-            if(roomdata[data.key].socketid ==  client2Id)
+            if(roomdata[data.key].socketid ==  client2Id && stoppad2==false)
             check2=true
           }
           if(check2==true &&  roomdata[data.key].secondgreyX_1 > 0 && stoppad2==false){
             if(roomdata[data.key].socketid ==  client2Id)
+            console.log("i have a movment paddel 2 2")
             roomdata[data.key].secondgreyX_1= roomdata[data.key].secondgreyX_1-4
    
           }else{
-            if(roomdata[data.key].socketid ==  client2Id)
+            if(roomdata[data.key].socketid ==  client2Id && stoppad2==false)
             check2=false
           }
           if(roomdata[data.key].direction=='left' &&  roomdata[data.key].socketid == client2Id ){
             check2=false
           }else if(roomdata[data.key].socketid == client2Id) {check2=true}
-      
+
+      // console.log(roomdata[data.key].greyX_1 + " i am greyX_1")
+      // console.log(roomdata[data.key].secondgreyX_1 + "i am secondgreyX_1")
+      // console.log(check1+"i am check1")
+      // console.log(check2+"i am check2")
+      // console.log(stoppad1+"i am stoppad1")
+      // console.log(stoppad2+"i am stoppad2")
 
               }
             }
