@@ -264,14 +264,29 @@ export default {
       document.addEventListener('keydown', (event) => {
         if (event.code === 'Space'&& !this.showChat) this.socket.emit('space')
         if (event.code === 'ArrowLeft') {
+          if(this.Store.havecode=='5iztui'){
           this.socket.emit('movePaddle', {
             direction: 'left',
           
           })
-        } else if (event.code === 'ArrowRight') {
-          this.socket.emit('movePaddle', {
-            direction: 'right',
+        }else{
+          this.socket.emit('movePaddle1', {
+            direction: 'left',
+          
           })
+        }
+        } else if (event.code === 'ArrowRight') {
+          if(this.Store.havecode=='5iztui'){
+            this.socket.emit('movePaddle', {
+              direction: 'right',
+            
+            })
+          }else{
+            this.socket.emit('movePaddle1', {
+              direction: 'right',
+            
+            })
+          }
         }
       })
       document.addEventListener('keyup', () => {
