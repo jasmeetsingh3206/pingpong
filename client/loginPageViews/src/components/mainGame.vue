@@ -276,6 +276,7 @@ export default {
           })
         }
         } else if (event.code === 'ArrowRight') {
+
           if(this.Store.havecode=='5iztui'){
             this.socket.emit('movePaddle', {
               direction: 'right',
@@ -287,6 +288,7 @@ export default {
             
             })
           }
+
         }
       })
       document.addEventListener('keyup', () => {
@@ -339,11 +341,20 @@ export default {
     },
     buttonLeft(e) {
       e.target.style.opacity = '0'
-      this.socket.emit('movePaddle', {
-        direction: 'left',
-        value: this.greyX_1,
-        secondvalue: this.secondgreyX_1,
-      })
+
+     
+          if(this.Store.havecode=='5iztui'){
+          this.socket.emit('movePaddle', {
+            direction: 'left',
+          
+          })
+        }else{
+          this.socket.emit('movePaddle1', {
+            direction: 'left',
+          
+          })
+        }
+
       // debugger
       setTimeout(() => {
         e.target.style.opacity = '.8'
@@ -351,11 +362,18 @@ export default {
     },
     buttonRight(e) {
       e.target.style.opacity = '0'
-      this.socket.emit('movePaddle', {
-        direction: 'right',
-        value: this.greyX_1,
-        secondvalue: this.secondgreyX_1,
-      })
+      if(this.Store.havecode=='5iztui'){
+            this.socket.emit('movePaddle', {
+              direction: 'right',
+            
+            })
+          }else{
+            this.socket.emit('movePaddle1', {
+              direction: 'right',
+            
+            })
+          }
+
       setTimeout(() => {
         e.target.style.opacity = '.8'
       }, 80)
