@@ -60,8 +60,8 @@
     </div>
 
     <div class="flex md:hidden w-full justify-between">
-      <i class="fa fa-arrow-left h-14 mb-10 ml-9 text-5xl text-blue-900" @touchend="stop" @mousedown="buttonLeft"></i>
-      <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @touchend="stop" @mousedown="buttonRight"></i>
+      <i class="fa fa-arrow-left h-14 mb-10 ml-9 text-5xl text-blue-900" @mouseup="stop" @mousedown="buttonLeft"></i>
+      <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @mouseup="stop" @mousedown="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
 
@@ -304,6 +304,12 @@ export default {
       this.notifaction = false
 
     },
+
+    stop(){
+      console.log('i am running')
+      this.socket.emit('stopPaddel',{
+        })
+      },
     soundToggle() {
       this.soundFlag = !this.soundFlag
       // this.audio.muted = !this.soundFlag
@@ -313,8 +319,7 @@ export default {
     },
 
     sendMessage() {
-      console.log("helloji");
-      console.log(this.Store.inputMessage)
+   
       if (this.Store.inputMessage) {
         socket.emit("messagePlayer", {
           message: this.Store.inputMessage
@@ -377,9 +382,7 @@ export default {
       setTimeout(() => {
         e.target.style.opacity = '.8'
       }, 80)
-    },stop(){
-      this.socket.emit('stopPaddel',{
-        })
+    
     },
 
     connectToSocket() {
@@ -441,7 +444,7 @@ export default {
         if (this.gameover !== 'over') this.goalSound.play()
       })
       this.socket.on('gameanimated', (data) => {
-        console.log(data)
+    
         this.x_1 = data.x_cordinate_center
         this.y_1 = data.y_cordinate_center
         this.dx_1 = data.xspeed
@@ -462,8 +465,7 @@ export default {
       this.socket.on('gameover', (data) => {
         this.gameover = data.gamestatus
         this.winner = data.winner
-        console.log(data)
-        console.log(this.winner)
+       
         this.checkrestart = data.checkrestart
         this.print = data.print
         // this.audio.pause()
@@ -505,7 +507,7 @@ export default {
         else this.trying = false
       })
       this.socket.on('oppmessage', (data) => {
-        console.log(data.Message)
+  
         if (!this.showChat) this.notifaction = true;
         this.Store.messages.push({
           body: data.Message,
