@@ -60,8 +60,8 @@
     </div>
 
     <div class="flex md:hidden w-full justify-between">
-      <i class="fa fa-arrow-left h-14 mb-10 ml-9 text-5xl text-blue-900" @click="buttonLeft"></i>
-      <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @click="buttonRight"></i>
+      <i class="fa fa-arrow-left h-14 mb-10 ml-9 text-5xl text-blue-900" @mouseup="stop" @mousedown="buttonLeft"></i>
+      <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @mouseup="stop" @mousedown="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
 
@@ -377,6 +377,9 @@ export default {
       setTimeout(() => {
         e.target.style.opacity = '.8'
       }, 80)
+    },stop(){
+      this.socket.emit('stopPaddel',{
+        })
     },
 
     connectToSocket() {
