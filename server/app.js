@@ -26,6 +26,7 @@ let stoppad1 = true;
 let check1 = false;
 let check2 = false;
 const myArray = [];
+let intervalId = null;
 io.on("connection", (socket) => {
   emitter.setMaxListeners(20);
   let check = false;
@@ -229,7 +230,12 @@ io.on("connection", (socket) => {
         roomdata[data.key].countP1 = data.countP1;
         roomdata[data.key].countP2 = data.countP2;
 
-        setInterval(() => {
+        if( intervalId )
+        {
+          clearInterval(intervalId);
+        }
+
+        intervalId = setInterval(() => {
           if (roomdata[data.key].pause) {
             if (roomdata[data.key].check1_1 == false) {
               if (
