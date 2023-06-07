@@ -123,9 +123,9 @@ export default {
       widthtemp_1: 500,
       heighttemp_1: 500,
       x_1: 250,
-      dx_1: 2,
+      dx_1: 4,
       y_1: 440,
-      dy_1: 2,
+      dy_1: 4,
       radius_1: 10,
       greyX_1: 210,
       greyY_1: 450,
@@ -420,6 +420,7 @@ export default {
         if (this.gameover !== 'over') this.goalSound.play()
       })
       this.socket.on('gameanimated', (data) => {
+        console.log(data)
         this.x_1 = data.x_cordinate_center
         this.y_1 = data.y_cordinate_center
         this.dx_1 = data.xspeed
