@@ -60,8 +60,8 @@
     </div>
 
     <div class="flex md:hidden w-full justify-between">
-      <!-- <i class="fa fa-arrow-left h-14 mb-10 ml-9 text-5xl text-blue-900" @touchmove="buttonLeft" @touchend="stop"  @mousedown="buttonLeft"></i>
-      <i class="fa fa-arrow-right h-14 mb-10 mr-9 text-5xl text-blue-900" @touchmove="buttonRight" @touchend="stop"   @mousedown="buttonRight"></i> -->
+      <i class="fa fa-arrow-left h-14 mb-10 ml-13 text-5xl text-blue-900" @touchmove="buttonLeft" @touchend="stop"  @mousedown="buttonLeft"></i>
+      <i class="fa fa-arrow-right h-14 mb-10 mr-13 text-5xl text-blue-900" @touchmove="buttonRight" @touchend="stop"   @mousedown="buttonRight"></i>
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
 
@@ -222,8 +222,6 @@ export default {
       context_1.fillStyle = '#fe4f32'
       context_1.fill()
       
-    window.addEventListener('touchmove', this.buttonLeft);
-    window.addEventListener('touchend', this.stop);
 
       // this.audio = new Audio(
       //   'https://docs.google.com/uc?export=download&id=17diq43t5Rc8Z9ppvQG5d6PRFx9-KxemO'
