@@ -343,7 +343,8 @@ console.log(roomdata[data.key].direction2 +'i am direction2')
                   }
 
                   roomdata[data.key].x_1 =
-                    roomdata[data.key].x_1 + roomdata[data.key].dx_1;
+                    roomdata[data.key].x_1 + roomdata[data.key].dx_1 -0.3;
+                   
                 }
               } else {
                 if (
