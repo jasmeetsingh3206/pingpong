@@ -59,9 +59,10 @@
       </button>
     </div>
 
-    <div class="flex md:hidden w-full justify-between">
-      <i class="fa fa-arrow-left h-14 mb-10 ml-10 text-5xl text-blue-900" @touchmove="buttonLeft" @touchend="stop"  @mousedown="buttonLeft"></i>
-      <i class="fa fa-arrow-right h-14 mb-10 mr-10 text-5xl text-blue-900" @touchmove="buttonRight" @touchend="stop"   @mousedown="buttonRight"></i>
+    <div class="flex md:hidden w-full justify-center">
+      
+     <input id="large-range" type="range" v-model="value" @input="handleRangeInput($event)" @change="handleRangeChange"  class="w-4/6 h-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700"/>
+    
     </div>
     <img src="../images/logo.png" class="h-20 lg:h-80 lg:m-5 m-1 mt-5 absolute top-0 left-2" />
 
@@ -120,6 +121,7 @@ export default {
   data() {
     return {
       Store: useMyStore(),
+    
       widthtemp_1: 500,
       heighttemp_1: 500,
       x_1: 250,
@@ -157,7 +159,9 @@ export default {
       audioElement: null,
       winner: '',
       notifaction:false,
-      pv:0
+      pv:0,
+      value:50,
+      prev:50
     }
   },
   computed: {
@@ -300,6 +304,28 @@ export default {
     }
   },
   methods: {
+    handleRangeChange(){
+      this.stop()
+    },
+    handleRangeInput(event){
+      console.log(this.value)
+      console.log(this.prev)
+   
+      if(this.value==100){
+        this.buttonRight(event)
+      }else{
+      if(this.prev>this.value){
+this.buttonLeft(event)
+      }else if(this.prev<this.value){
+this.buttonRight(event)
+      }else{
+        this.stop()
+      }
+      this.prev=this.value;
+
+    }
+      
+    },
     showNotification() {
       this.showChat = !this.showChat
       this.notifaction = false
@@ -346,7 +372,7 @@ export default {
       this.$router.replace('/')
     },
     buttonLeft(e) {
-      e.target.style.opacity = '0'
+     
 
      
           if(this.Store.havecode=='5iztui'){
@@ -367,7 +393,7 @@ export default {
       }, 100)
     },
     buttonRight(e) {
-      e.target.style.opacity = '0'
+     
       if(this.Store.havecode=='5iztui'){
             this.socket.emit('movePaddle', {
               direction: 'right',
