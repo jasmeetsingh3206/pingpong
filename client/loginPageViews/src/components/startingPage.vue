@@ -7,7 +7,7 @@
       <div class="mt-2 md:mt-0">
         <form class="flex items-center justify-center space-x-4 flex-wrap mr-4 flex-col">
           <label for="room-name" class="sr-only">Room Name:</label>
-          <span v-if="myStoreStore.msg==true"   class=" mb-3 font-extrabold text-red-600" >Client Disconnected{{ restartMessage() }}</span>
+          <span v-if="myStoreStore.msg==true"   class=" mb-3 font-extrabold text-red-600" >Player Disconnected{{ restartMessage() }}</span>
           <div>
             <div
               class="flex mt-2 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
@@ -134,6 +134,7 @@ export default {
     },
 
     restartMessage() {
+   
       window.location.reload()
     }
   }

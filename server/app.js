@@ -26,7 +26,6 @@ let stoppad1 = true;
 let check1 = false;
 let check2 = false;
 const myArray = [];
-let intervalId = null;
 io.on("connection", (socket) => {
   emitter.setMaxListeners(20);
   let check = false;
@@ -230,12 +229,7 @@ io.on("connection", (socket) => {
         roomdata[data.key].countP1 = data.countP1;
         roomdata[data.key].countP2 = data.countP2;
 
-        if( intervalId )
-        {
-          clearInterval(intervalId);
-        }
-
-        intervalId = setInterval(() => {
+        setInterval(() => {
           if (roomdata[data.key].pause) {
             if (roomdata[data.key].check1_1 == false) {
               if (
@@ -276,18 +270,19 @@ io.on("connection", (socket) => {
                     roomdata[data.key].y_1,
                     roomdata[data.key].x_1
                   );
-
+                    console.log(roomdata[data.key].dx_1 )
                   if (roomdata[data.key].direction1 == "left" || roomdata[data.key].direction2=="right") {
                     if (roomdata[data.key].socketid == client1Id) {
+
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 +
-                          1 +
+                          roomdata[data.key].dx_1 -
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       } else if (roomdata[data.key].dx_1 < 0) {
                         roomdata[data.key].dx_1 =
                           roomdata[data.key].dx_1 +
-                          1 +
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                           console.log("i am running")
                       }
@@ -295,12 +290,12 @@ io.on("connection", (socket) => {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
                           roomdata[data.key].dx_1 +
-                          1 +
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       } else if (roomdata[data.key].dx_1 < 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 +
-                          1 +
+                          roomdata[data.key].dx_1 -
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
                     }
@@ -314,8 +309,8 @@ console.log(roomdata[data.key].direction2 +'i am direction2')
                     ) {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 -
-                          1 -
+                          roomdata[data.key].dx_1 +
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       } else if (
                         roomdata[data.key].dx_1 < 0 
@@ -323,25 +318,25 @@ console.log(roomdata[data.key].direction2 +'i am direction2')
                       ) {
                         roomdata[data.key].dx_1 =
                           roomdata[data.key].dx_1 -
-                          1 -
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
                     } else if (
-                      roomdata[data.key].socketid2 == client2Id 
+                      roomdata[data.key].socketid == client2Id 
                      
                     ) {
                       if (roomdata[data.key].dx_1 > 0) {
                         roomdata[data.key].dx_1 =
                           roomdata[data.key].dx_1 -
-                          1 -
+                          
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       } else if (
                         roomdata[data.key].dx_1 < 0 
                        
                       ) {
                         roomdata[data.key].dx_1 =
-                          roomdata[data.key].dx_1 -
-                          1 -
+                          roomdata[data.key].dx_1 +
+                         
                           Math.cos(roomdata[data.key].angle_of_incidence);
                       }
                     }
